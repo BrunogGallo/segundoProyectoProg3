@@ -1,0 +1,35 @@
+import React, { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
+import Register from './src/components/Register';
+import Login from './src/components/Login';
+import AppMainPage from './src/components/AppMainPage';
+
+
+const Stack = createNativeStackNavigator()
+class App extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+
+    }
+  }
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name='Register' component={Register} options={{ headerShown: false }}/>
+          <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
+          <Stack.Screen name='AppMainPage' component={AppMainPage} options={{ headerShown: false }}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+
+    )
+  }
+
+}
+
+export default App
