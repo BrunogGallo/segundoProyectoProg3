@@ -21,8 +21,8 @@ class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name='Register' component={Register} options={{ headerShown: false }}/>
           <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
+          <Stack.Screen name='Register' component={Register} options={{ headerShown: false }}/>
           <Stack.Screen name='AppMainPage' component={AppMainPage} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>

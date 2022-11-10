@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image } from 'react-native'
 import { StyleSheet } from "react-native";
 import { auth, db } from "../firebase/config";
 
@@ -53,45 +53,59 @@ class Profile extends Component {
 
     render() {
         return (
-                <View style={styles.contenedor}>
-                    {
-                        this.state.loaderData
-                        ? 
-                        <ActivityIndicator size='large' color='black'/>
+            <React.Fragment>
+                {
+                    this.state.loaderData
+                        ?
+                        <ActivityIndicator size='large' color='black' />
                         :
-                        <View style={styles.contenedorMain}>
-                        <Text>{auth.currentUser?.email}</Text>
-                        <Text>Age: {this.state.datosUsuario?.edad}</Text>
-                        <Text>Dni: {this.state.datosUsuario?.dni}</Text>
-                        <MyCamera />
+                        <View style={styles.userDataContainer}>
+                            <Image style={styles.image}
+                                source={require('../../assets/default-user-image.png')}
+                                resizeMode='contain'
+                            />
+                            <View>
+                            <Text>{this.state.datosUsuario?.username}</Text>
+                            <Text>{auth.currentUser?.email}</Text>
+                            <Text>{this.state.datosUsuario?.nationality}</Text>
+                            </View>
                         </View>
-                    }
-                    
+                }
 
-                    {
-                        this.state.loader
-                        ? 
-                        <ActivityIndicator size='large' color='black'/>
-                        : 
+
+                {
+                    this.state.loader
+                        ?
+                        <ActivityIndicator size='large' color='black' />
+                        :
                         <FlatList
-                        data={this.state.postsUsuario}
-                        keyExtractor={post => post.id.toString()}
-                        renderItem={({ item }) => <Posts postData={item} />}
+                            data={this.state.postsUsuario}
+                            keyExtractor={post => post.id.toString()}
+                            renderItem={({ item }) => <Posts postData={item} />}
                         />
-                    }
-                </View>
+                }
+            </React.Fragment>
         )
     }
 
 }
 const styles = StyleSheet.create({
-    contenedor: {
+    mainContainer: {
         textAlign: 'center',
         padding: 10
     },
-    contenedorMain: {
-        alignItems:'center',
-        justifyContent: 'center'
+    image: {
+        height: 50,
+        width: 50
+    },
+    userDataContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        marginTop: 20,
+        padding: 10,
+        backgroundColor: 'white'
+
     }
 })
 export default Profile

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, ActivityIndicator } from 'react-native'
 import { auth } from '../firebase/config'
 
 class Login extends Component {
@@ -9,10 +9,18 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-
+            loader: true
         }
     }
 
+    componentDidMount() {
+        auth.currentUser ==! null
+            ? this.props.navigation.navigate('AppMainPage')
+            : this.setState({
+                loader: false
+            })
+            
+    }
     onSubmit2() {
         auth.signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(response => {
@@ -28,13 +36,14 @@ class Login extends Component {
     render() {
         return (
             <React.Fragment>
+
+                {
+                this.state.loader
+                ? <ActivityIndicator size='large' color='black' />
+                :
                 <View style={styles.mainContainer}>
                     <View style={styles.contendorLogin}>
-                        {
-                            this.state.loggedIn
-                                ? <Text>Hola, {auth.currentUser?.email}</Text>
-                                : ''
-                        }
+                        <Text style={styles.title}>Foodle</Text>
                         <TextInput style={styles.fuenteLogin}
                             keyboardType='email-adress'
                             placeholder='Email'
@@ -51,9 +60,9 @@ class Login extends Component {
                         <TouchableOpacity onPress={() => this.onSubmit2()}>
                             <Text style={styles.fuenteLogin}>Login</Text>
                         </TouchableOpacity>
-                        <Text>{this.state.loggedIn}</Text>
-                        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                            <Text>Volver</Text>
+
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
+                            <Text>No tienes cuenta? Registrate</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => this.props.navigation.navigate("AppMainPage")}>
@@ -61,6 +70,9 @@ class Login extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+
+                }
+
             </React.Fragment>
         )
     }
@@ -68,23 +80,31 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh'
+    },
+    title: {
+        fontWeight: '600',
+        fontSize: '30px',
+        color: 'forestgreen'
     },
     contendorLogin: {
         flexDirection: 'column',
-        margin: 10,
-        padding: 30,
+        marginBottom: 20,
+        padding: 20,
         width: '40%',
         textAlign: 'center',
-        backgroundColor: 'blue',
+        backgroundColor: 'white',
         borderRadius: 4,
+        border: '1px solid'
     },
     fuenteLogin: {
         color: 'white',
         textAlign: 'center',
         margin: 3,
         backgroundColor: 'grey',
-        margin: 10,
+        margin: 15,
         padding: 10,
         borderRadius: 4
     }
