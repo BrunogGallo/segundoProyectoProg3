@@ -9,28 +9,36 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            loader: true
+            loader: true,
+            errors: ''
         }
     }
 
     componentDidMount() {
-        auth.currentUser ==! null
-            ? this.props.navigation.navigate('AppMainPage')
-            : this.setState({
-                loader: false
-            })
-            
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                this.props.navigation.navigate('AppMainPage')
+            } else {
+                this.setState({
+                    loader: false
+                })
+            }
+        })
+
     }
+
     onSubmit2() {
         auth.signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(response => {
                 this.props.navigation.navigate('AppMainPage')
             })
             .catch(error => {
-                console.log(error);
-                console.log(this.state.loggedIn);
+                this.setState({
+                    errors: error.message
+                })
+                console.log(error)
+                console.log(this.state.loggedIn)
             })
-
     }
 
     render() {
@@ -38,38 +46,47 @@ class Login extends Component {
             <React.Fragment>
 
                 {
-                this.state.loader
-                ? <ActivityIndicator size='large' color='black' />
-                :
-                <View style={styles.mainContainer}>
-                    <View style={styles.contendorLogin}>
-                        <Text style={styles.title}>Foodle</Text>
-                        <TextInput style={styles.fuenteLogin}
-                            keyboardType='email-adress'
-                            placeholder='Email'
-                            onChangeText={text => this.setState({ email: text })}
-                            value={this.state.email}
-                        />
-                        <TextInput style={styles.fuenteLogin}
-                            keyboardType='default'
-                            placeholder='Password'
-                            secureTextEntry={true}
-                            onChangeText={text => this.setState({ password: text })}
-                            value={this.state.password}
-                        />
-                        <TouchableOpacity onPress={() => this.onSubmit2()}>
-                            <Text style={styles.fuenteLogin}>Login</Text>
-                        </TouchableOpacity>
+                    this.state.loader
+                        ? <ActivityIndicator size='large' color='black' />
+                        :
+                        <View style={styles.mainContainer}>
+                            <View style={styles.contendorLogin}>
+                                <Text style={styles.title}>Foodle</Text>
+                                <Text style={styles.error}>{this.state.errors}</Text>
+                                <TextInput style={styles.fuenteLogin}
+                                    keyboardType='email-adress'
+                                    placeholder='Email'
+                                    onChangeText={text => this.setState({ email: text })}
+                                    value={this.state.email}
+                                />
+                                <TextInput style={styles.fuenteLogin}
+                                    keyboardType='default'
+                                    placeholder='Password'
+                                    secureTextEntry={true}
+                                    onChangeText={text => this.setState({ password: text })}
+                                    value={this.state.password}
+                                />
+                                {
+                                    this.state.email !== '' && this.state.password !== ''
+                                        ?
+                                        <TouchableOpacity onPress={() => this.onSubmit2()}>
+                                            <Text style={styles.submitButton}>Login</Text>
+                                        </TouchableOpacity>
+                                        :
+                                        <TouchableOpacity>
+                                            <Text style={styles.submitButtonOff}>Login</Text>
+                                        </TouchableOpacity>
+                                }
 
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
-                            <Text>No tienes cuenta? Registrate</Text>
-                        </TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
+                                    <Text>No tienes cuenta? Registrate</Text>
+                                </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("AppMainPage")}>
-                            <Text>Ir a Pagina</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate("AppMainPage")}>
+                                    <Text>Ir a Pagina</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
 
                 }
 
@@ -85,7 +102,7 @@ const styles = StyleSheet.create({
         height: '100vh'
     },
     title: {
-        fontWeight: '600',
+        fontWeight: '700',
         fontSize: '30px',
         color: 'forestgreen'
     },
@@ -104,9 +121,32 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 3,
         backgroundColor: 'grey',
-        margin: 15,
+        margin: 10,
         padding: 10,
         borderRadius: 4
+    },
+    submitButton: {
+        color: 'white',
+        textAlign: 'center',
+        margin: 3,
+        backgroundColor: 'forestgreen',
+        margin: 18,
+        padding: 10,
+        borderRadius: 20
+    },
+    submitButtonOff: {
+        color: 'white',
+        textAlign: 'center',
+        margin: 3,
+        backgroundColor: 'grey',
+        margin: 18,
+        padding: 10,
+        borderRadius: 20,
+        width: '40%',
+        alignSelf: 'center'
+    },
+    error: {
+        color: 'red'
     }
 })
 
