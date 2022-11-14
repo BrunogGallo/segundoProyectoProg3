@@ -63,19 +63,7 @@ class Home extends Component {
                             source={require('../../assets/Foodle.png')}
                             resizeMode='contain'/>
 
-                    {
-                        this.state.loader
-                            ? 
-                            <ActivityIndicator size='large' color='black'/>
-                            : 
-                            
-                            <FlatList 
-                                data={this.state.posts}
-                                keyExtractor={post => post.id.toString()}
-                                renderItem={({ item }) => <Posts postData={item} />}
-                            />
-                            
-                    }
+                    
 
                 </View>
             </React.Fragment>

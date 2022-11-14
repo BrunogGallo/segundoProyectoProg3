@@ -5,7 +5,8 @@ import Home from "../screens/Home";
 import Profile from "../screens/Profile";
 import AddPost from "../screens/AddPost";
 import Search from "../screens/Search";
-import {FontAwesome} from '@expo/vector-icons'
+import {FontAwesome} from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 
 const Tab = createBottomTabNavigator()
@@ -13,24 +14,24 @@ function AppMainPage() {
 
     return (
         <React.Fragment>
-            <Tab.Navigator>
+            <Tab.Navigator screenOptions={{tabBarShowLabel: false, tabBarActiveTintColor: 'green'}}>
                 <Tab.Screen name='Home' component={Home}
                     options={
-                        { tabBarIcon: () => <FontAwesome name='home' size={24} color='black' /> }
+                        { tabBarIcon: ({color}) => (<FontAwesome name='home' size={24} color={color} />) }
                     } />
 
                 <Tab.Screen name='Profile' component={Profile}
                     options={
-                        { tabBarIcon: () => <FontAwesome name='user' size={24} color='black' /> }
+                        { tabBarIcon: ({color}) => (<FontAwesome name='user' size={24} color={color} />) }
                     } />
 
                 <Tab.Screen name='AddPost' component={AddPost}
                     options={
-                        { tabBarIcon: () => <FontAwesome name='plus-square' size={24} color='black' /> }
+                        { tabBarIcon: ({color}) => (<FontAwesome name='plus-square' size={24} color={color} />) }
                     } />
                 <Tab.Screen name='Search' component={Search}
                     options={
-                        { tabBarIcon: () => <FontAwesome name='plus-square' size={24} color='black' /> }
+                        { tabBarIcon: ({color}) => (<AntDesign name="search1" size={24} color={color} />) }
                     } />
             </Tab.Navigator>
         </React.Fragment>
