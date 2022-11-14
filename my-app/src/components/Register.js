@@ -11,10 +11,11 @@ class Register extends Component {
             email: '',
             password: '',
             age: '',
-            nationality: '',
+            bio: '',
             registered: false,
-            loader: true
-
+            loader: true,
+            errors: '',
+            photo: ''
         }
     }
 
@@ -33,12 +34,17 @@ class Register extends Component {
                     createdAt: Date.now(),
                     age: this.state.age,
                     username: this.state.username,
-                    nationality: this.state.nationality
+                    bio: this.state.bio,
+                    photo: this.state.photo
                 })
             })
             .then(() => this.props.navigation.navigate("Login"))
             .catch(error => {
-                console.log(error);
+                this.setState({
+                    errors: error.message
+                },
+                    console.log(error)
+                )
             })
     }
 
@@ -53,6 +59,7 @@ class Register extends Component {
                             :
                             <View style={styles.contendorLogin}>
                                 <Text style={styles.title}>Foodle</Text>
+                                <Text style={styles.error}>{this.state.errors}</Text>
                                 <TextInput style={styles.fuenteLogin}
                                     keyboardType='email-adress'
                                     placeholder='Email'
@@ -67,16 +74,10 @@ class Register extends Component {
                                 />
                                 <TextInput style={styles.fuenteLogin}
                                     keyboardType='default'
-                                    placeholder='Password'
+                                    placeholder='Contraseña'
                                     secureTextEntry={true}
                                     onChangeText={text => this.setState({ password: text })}
                                     value={this.state.password}
-                                />
-                                <TextInput style={styles.fuenteLogin}
-                                    keyboardType='default'
-                                    placeholder='Nacionalidad'
-                                    onChangeText={text => this.setState({ nationality: text })}
-                                    value={this.state.nationality}
                                 />
                                 <TextInput style={styles.fuenteLogin}
                                     keyboardType='numeric'
@@ -84,9 +85,23 @@ class Register extends Component {
                                     onChangeText={text => this.setState({ age: text })}
                                     value={this.state.age}
                                 />
-                                <TouchableOpacity onPress={() => this.onSubmit()}>
-                                    <Text style={styles.fuenteLogin}>Sign In</Text>
-                                </TouchableOpacity>
+                                <TextInput style={styles.fuenteLogin}
+                                    keyboardType='default'
+                                    placeholder='Algo sobre ti'
+                                    onChangeText={text => this.setState({ bio: text })}
+                                    value={this.state.bio}
+                                />
+                                {
+                                    this.state.email !== '' && this.state.password !== ''
+                                        ?
+                                        <TouchableOpacity onPress={() => this.onSubmit()}>
+                                            <Text style={styles.submitButton}>Sign In</Text>
+                                        </TouchableOpacity>
+                                        :
+                                        <TouchableOpacity>
+                                            <Text style={styles.submitButtonOff}>Sign In</Text>
+                                        </TouchableOpacity>
+                                }
 
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                                     <Text>Ya tienes cuenta? Ingresa</Text>
@@ -107,7 +122,7 @@ const styles = StyleSheet.create({
         height: '100vh',
     },
     title: {
-        fontWeight: '600',
+        fontWeight: '700',
         fontSize: '30px',
         color: 'forestgreen'
     },
@@ -129,6 +144,27 @@ const styles = StyleSheet.create({
         margin: 10,
         padding: 10,
         borderRadius: 4
+    },
+    submitButton: {
+        color: 'white',
+        textAlign: 'center',
+        margin: 3,
+        backgroundColor: 'forestgreen',
+        margin: 22,
+        padding: 10,
+        borderRadius: 20
+    },
+    submitButtonOff: {
+        color: 'white',
+        textAlign: 'center',
+        margin: 3,
+        backgroundColor: 'grey',
+        margin: 22,
+        padding: 10,
+        borderRadius: 20
+    },
+    error: {
+        color: 'red'
     }
 })
 

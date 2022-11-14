@@ -60,21 +60,42 @@ class Profile extends Component {
                         <ActivityIndicator size='large' color='black' />
                         :
                         <View style={styles.userDataContainer}>
-                            <Image style={styles.image}
+                            {
+                                this.state.datosUsuario?.photo === '' || this.state.datosUsuario?.photo === null
+                                ?
+                                <View style={styles.profileImage}>                                
+                                <Image style={styles.image}
                                 source={require('../../assets/default-user-image.png')}
                                 resizeMode='contain'
-                            />
+                                />
+                                <TouchableOpacity>
+                                    <Text style={styles.profileData}>Cambiar foto</Text>
+                                </TouchableOpacity>
+                                </View>
+
+                                :
+                                <View>
+                                <Image style={styles.image}
+                                source={{uri: this.state.datosUsuario?.photo}}
+                                resizeMode='contain'
+                                />
+                                <TouchableOpacity>
+                                    <Text style={styles.profileData}>Cambiar foto</Text>
+                                </TouchableOpacity>
+                                </View>
+                            }
+                            
                             <View>
-                            <Text>{this.state.datosUsuario?.username}</Text>
-                            <Text>{auth.currentUser?.email}</Text>
-                            <Text>{this.state.datosUsuario?.nationality}</Text>
+                            <Text style={styles.bold}>{this.state.datosUsuario?.username}</Text>
+                            <Text style={styles.profileData}>{auth.currentUser?.email}</Text>
+                            <Text style={styles.profileData}>"{this.state.datosUsuario?.bio}"</Text>
                             </View>
                         </View>
                 }
 
 
                 {
-                    this.state.loader
+                    this.state.loaderPost
                         ?
                         <ActivityIndicator size='large' color='black' />
                         :
@@ -105,7 +126,17 @@ const styles = StyleSheet.create({
         marginTop: 20,
         padding: 10,
         backgroundColor: 'white'
-
+    },
+    bold: {
+        fontWeight: 'bold',
+        margin: 2
+    },
+    profileImage: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    profileData: {
+        margin: 2
     }
 })
 export default Profile

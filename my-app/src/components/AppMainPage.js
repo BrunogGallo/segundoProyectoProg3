@@ -20,6 +20,10 @@ function AppMainPage() {
                         { tabBarIcon: ({color}) => (<FontAwesome name='home' size={24} color={color} />) }
                     } />
 
+                <Tab.Screen name='Search' component={Search}
+                    options={
+                        { tabBarIcon: ({color}) => (<AntDesign name="search1" size={24} color={color} />) }
+                    } />
                 <Tab.Screen name='Profile' component={Profile}
                     options={
                         { tabBarIcon: ({color}) => (<FontAwesome name='user' size={24} color={color} />) }
@@ -29,10 +33,7 @@ function AppMainPage() {
                     options={
                         { tabBarIcon: ({color}) => (<FontAwesome name='plus-square' size={24} color={color} />) }
                     } />
-                <Tab.Screen name='Search' component={Search}
-                    options={
-                        { tabBarIcon: ({color}) => (<AntDesign name="search1" size={24} color={color} />) }
-                    } />
+                
             </Tab.Navigator>
         </React.Fragment>
     )

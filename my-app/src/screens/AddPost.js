@@ -3,6 +3,7 @@ import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { StyleSheet } from "react-native";
 import { auth, db } from "../firebase/config";
 import firebase from "firebase";
+import MyCamera from "../components/MyCamera";
 
 class AddPost extends Component {
 
@@ -11,7 +12,9 @@ class AddPost extends Component {
         this.state = {
             datosUsuario: null, //tiene que arrancar como null
             title: '',
-            postContent: ''
+            postContent: '',
+            showCamera: true,
+            url: ''
         }
     }
 
@@ -36,12 +39,18 @@ class AddPost extends Component {
             title: this.state.title,
             postContent: this.state.postContent,
             createdAt: Date.now(),
-            likes: []
+            likes: [],
+            photo: this.state.url
         })
         .then (()=> this.props.navigation.navigate ('Home'))
         .catch ((error) => console.log(error))
     }
-
+    onImageUpload(url) {
+        this.setState({
+            showCamera: false,
+            url: url
+        });
+    }    
     render() {
         return (
             <React.Fragment>
@@ -55,6 +64,7 @@ class AddPost extends Component {
                             onChangeText={text => this.setState({ title: text })}
                             value={this.state.title}
                         />
+                        <MyCamera onImageUpload = {(url)=> this.onImageUpload(url)}/>
                         <TextInput style={styles.formInput}
                             keyboardType='default'
                             placeholder='Content'
