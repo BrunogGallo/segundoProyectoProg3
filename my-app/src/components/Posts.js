@@ -16,7 +16,7 @@ class Posts extends Component {
       .doc(this.props.postData.id)
       .update({
         likes: firebase.firestore.FieldValue.arrayRemove(
-          this.props.postData.data.owner //Todo: Preguntar si es lo mismo usar eso que auth.currentUser
+          auth.currentUser.email //Todo: Preguntar si es lo mismo usar eso que auth.currentUser
         )
       })
       .then(() => this.setState({ liked: false, text: "Like" }));
@@ -28,7 +28,7 @@ class Posts extends Component {
       .doc(this.props.postData.id)
       .update({
         likes: firebase.firestore.FieldValue.arrayUnion(
-          this.props.postData.data.owner
+          auth.currentUser.email
         )
       })
       .then(() =>
