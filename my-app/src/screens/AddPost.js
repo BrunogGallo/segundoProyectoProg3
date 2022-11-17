@@ -40,17 +40,17 @@ class AddPost extends Component {
             postContent: this.state.postContent,
             createdAt: Date.now(),
             likes: [],
-            photo: this.state.url
+            // photo: this.state.url
         })
         .then (()=> this.props.navigation.navigate ('Home'))
-        .catch ((error) => console.log(error))
+        .catch (error => console.log(error))
     }
-    onImageUpload(url) {
-        this.setState({
-            showCamera: false,
-            url: url
-        });
-    }    
+    // onImageUpload(url) {
+    //     this.setState({
+    //         showCamera: false,
+    //         url: url
+    //     });
+    // }    
     render() {
         return (
             <React.Fragment>
@@ -64,7 +64,7 @@ class AddPost extends Component {
                             onChangeText={text => this.setState({ title: text })}
                             value={this.state.title}
                         />
-                        <MyCamera onImageUpload = {(url)=> this.onImageUpload(url)}/>
+                        {/* <MyCamera onImageUpload = {(url)=> this.onImageUpload(url)} navigation={this.props.navigation}/> */}
                         <TextInput style={styles.formInput}
                             keyboardType='default'
                             placeholder='Content'
@@ -72,7 +72,7 @@ class AddPost extends Component {
                             value={this.state.postContent}
                         />
 
-                        <TouchableOpacity style={styles.fromButton} onPress={()=> this.onSubmit()}>
+                        <TouchableOpacity style={styles.formButton} onPress={()=> this.onSubmit()}>
                             <Text >Post</Text>
                         </TouchableOpacity>
                     </View>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 4
     },
-    fromButton: {
+    formButton: {
       width: 'fit-content',
       alignSelf: "center",
       color: 'black',
