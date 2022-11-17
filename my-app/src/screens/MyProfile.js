@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image } from 'react-native'
 import { StyleSheet } from "react-native";
-import { auth, db } from "../firebase/config";
 import Posts from "../components/Posts";
+import { auth, db } from "../firebase/config";
+import Posts from "../components/Posts"
+
 
 
 class MyProfile extends Component {
@@ -11,8 +13,8 @@ class MyProfile extends Component {
         super()
         this.state = {
             datosUsuario: null, //tiene que arrancar como null
-            postsUsuario: '',
-            loaderPost: true,
+            posts: '',
+            loader: true,
             loaderData: true
         }
     }
@@ -34,18 +36,18 @@ class MyProfile extends Component {
             docs => {
 
                 let posts = [];
+
                 docs.forEach(doc => {
-                    const idPost = doc.id;
-                    const data = doc.data();
-                    const postDataConId = {
-                        ...data,
-                        id: idPost
-                    }
-                    posts.push(postDataConId)
-                })
+                  const data = doc.data();
+                  const id = doc.id;
+                  posts.push({ data, id }); //? por qué usamos los corchetes acá?
+                  //! la información se guarda dentro del data, por eso despues hacemos postData.data. En el console.log se ve claramente esto. 
+                });
+        
                 this.setState({
-                    postsUsuario: posts,
-                    loaderPost: false
+                  // posts: [...this.state.posts, postDataConId]
+                  postsUsuario: posts,
+                  loaderPost: false,
                 })
             }
 
@@ -95,7 +97,7 @@ class MyProfile extends Component {
                                 <Text style={styles.bold}>{this.state.datosUsuario?.username}</Text>
                                 <Text style={styles.profileData}>{this.state.datosUsuario?.owner}</Text>
                                 <Text style={styles.profileData}>"{this.state.datosUsuario?.bio}"</Text>
-                                <Text style={styles.profileData}>Publicaciones: {this.state.postsUsuario.length}</Text>
+                                <Text style={styles.profileData}>Publicaciones: {this.state.posts.length}</Text>
                             </View>
                         </View>
                 }
@@ -105,13 +107,13 @@ class MyProfile extends Component {
                 </TouchableOpacity>
 
                 {
-                    this.state.loaderPost
+                    this.state.loader
                         ?
                         <ActivityIndicator size='large' color='black' />
                         :
                         <FlatList
-                            data={this.state.postsUsuario}
-                            keyExtractor={post => post.id.toString()}
+                            data={this.state.posts}
+                            keyExtractor={item => item.id.toString()}
                             renderItem={({ item }) => <Posts postData={item} />}
                         />
                 }
