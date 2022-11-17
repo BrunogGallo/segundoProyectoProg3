@@ -52,16 +52,6 @@ class Home extends Component {
     return (
       <React.Fragment>
         <View style={styles.contenedor}>
-          <Text>Hola {auth.currentUser.email}</Text>
-          <TouchableOpacity onPress={() => this.desloguear()}>
-            <Text>Sign Out</Text>
-          </TouchableOpacity>
-
-          <Image
-            style={styles.image}
-            source={require("../../assets/Foodle.png")}
-            resizeMode="contain"
-          />
 
           {this.state.loader ? (
             <ActivityIndicator size="large" color="black" />

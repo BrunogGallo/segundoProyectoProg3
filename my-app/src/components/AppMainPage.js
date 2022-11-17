@@ -39,9 +39,6 @@ function AppMainPage() {
                     } />
                 
             </Tab.Navigator>
-                <Stack.Navigator>
-                    <Stack.Screen name='Profile' component={Profile} />
-                </Stack.Navigator>
         </React.Fragment>
     )
 }
