@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image } from 'react-native'
 import { StyleSheet } from "react-native";
 import { auth, db } from "../firebase/config";
+import Posts from "../components/Posts";
 
 
 class MyProfile extends Component {
@@ -10,7 +11,7 @@ class MyProfile extends Component {
         super()
         this.state = {
             datosUsuario: null, //tiene que arrancar como null
-            postsUsuario: [],
+            postsUsuario: '',
             loaderPost: true,
             loaderData: true
         }
