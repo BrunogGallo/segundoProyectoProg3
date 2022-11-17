@@ -95,11 +95,11 @@ class Register extends Component {
                                     this.state.email !== '' && this.state.password !== ''
                                         ?
                                         <TouchableOpacity onPress={() => this.onSubmit()}>
-                                            <Text style={styles.submitButton}>Sign In</Text>
+                                            <Text style={styles.submitButton}>Registrate</Text>
                                         </TouchableOpacity>
                                         :
                                         <TouchableOpacity>
-                                            <Text style={styles.submitButtonOff}>Sign In</Text>
+                                            <Text style={styles.submitButtonOff}>Registrate</Text>
                                         </TouchableOpacity>
                                 }
 
@@ -150,18 +150,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 3,
         backgroundColor: 'forestgreen',
-        margin: 22,
+        margin: 18,
         padding: 10,
-        borderRadius: 20
+        borderRadius: 20,
+        width: '40%',
+        alignSelf: 'center'
     },
     submitButtonOff: {
         color: 'white',
         textAlign: 'center',
         margin: 3,
         backgroundColor: 'grey',
-        margin: 22,
+        margin: 18,
         padding: 10,
-        borderRadius: 20
+        borderRadius: 20,
+        width: '40%',
+        alignSelf: 'center'
     },
     error: {
         color: 'red'

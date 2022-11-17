@@ -6,9 +6,13 @@ import Profile from "../screens/Profile";
 import AddPost from "../screens/AddPost";
 import Search from "../screens/Search";
 import { FontAwesome } from '@expo/vector-icons'
+import MyProfile from "../screens/MyProfile";
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
 
 
 const Tab = createBottomTabNavigator()
+const Stack = createNativeStackNavigator()
 function AppMainPage() {
 
     return (
@@ -19,20 +23,23 @@ function AppMainPage() {
                         { tabBarIcon: () => <FontAwesome name='home' size={24} color='black' /> }
                     } />
 
-                <Tab.Screen name='Search' component={Search}
+                <Tab.Screen name='Buscar' component={Search}
                     options={
                         { tabBarIcon: () => <FontAwesome name='search' size={24} color='black' /> }
                     } />
-                <Tab.Screen name='Profile' component={Profile}
+                <Tab.Screen name='Mi Perfil' component={MyProfile}
                     options={
                         { tabBarIcon: () => <FontAwesome name='user' size={24} color='black' /> }
                     } />
 
-                <Tab.Screen name='AddPost' component={AddPost}
+                <Tab.Screen name='Agregar' component={AddPost}
                     options={
                         { tabBarIcon: () => <FontAwesome name='plus-square' size={24} color='black' /> }
                     } />
             </Tab.Navigator>
+                <Stack.Navigator>
+                    <Stack.Screen name='Profile' component={Profile} />
+                </Stack.Navigator>
         </React.Fragment>
     )
 }

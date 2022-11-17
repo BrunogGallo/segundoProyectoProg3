@@ -27,7 +27,7 @@ class Login extends Component {
 
     }
 
-    onSubmit2() {
+    onSubmit() {
         auth.signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(response => {
                 this.props.navigation.navigate('AppMainPage')
@@ -61,7 +61,7 @@ class Login extends Component {
                                 />
                                 <TextInput style={styles.fuenteLogin}
                                     keyboardType='default'
-                                    placeholder='Password'
+                                    placeholder='Contraseña'
                                     secureTextEntry={true}
                                     onChangeText={text => this.setState({ password: text })}
                                     value={this.state.password}
@@ -69,21 +69,17 @@ class Login extends Component {
                                 {
                                     this.state.email !== '' && this.state.password !== ''
                                         ?
-                                        <TouchableOpacity onPress={() => this.onSubmit2()}>
-                                            <Text style={styles.submitButton}>Login</Text>
+                                        <TouchableOpacity onPress={() => this.onSubmit()}>
+                                            <Text style={styles.submitButton}>Ingresar</Text>
                                         </TouchableOpacity>
                                         :
                                         <TouchableOpacity>
-                                            <Text style={styles.submitButtonOff}>Login</Text>
+                                            <Text style={styles.submitButtonOff}>Ingresar</Text>
                                         </TouchableOpacity>
                                 }
 
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
                                     <Text>No tienes cuenta? Registrate</Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate("AppMainPage")}>
-                                    <Text>Ir a Pagina</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -132,7 +128,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'forestgreen',
         margin: 18,
         padding: 10,
-        borderRadius: 20
+        borderRadius: 20,
+        width: '40%',
+        alignSelf: 'center'
     },
     submitButtonOff: {
         color: 'white',

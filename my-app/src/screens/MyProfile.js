@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { auth, db } from "../firebase/config";
 
 
-class Profile extends Component {
+class MyProfile extends Component {
 
     constructor() {
         super()
@@ -17,7 +17,7 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        db.collection('datosUsuario').where('username', '==', ).onSnapshot(
+        db.collection('datosUsuario').where('owner', '==', auth.currentUser.email).onSnapshot(
             docs => {
                 docs.forEach(doc => { //doc es un array
                     const data = doc.data();
@@ -53,7 +53,7 @@ class Profile extends Component {
 
     desloguear() {
         auth.signOut();
-        this.props.navigation.navigate(`Login${'sdsd'}`)
+        this.props.navigation.navigate("Login")
     }
 
     render() {
@@ -98,16 +98,10 @@ class Profile extends Component {
                             </View>
                         </View>
                 }
-                {
-                    this.state.datosUsuario?.owner === auth.currentUser?.email
-                        ?
-                        <TouchableOpacity onPress={() => this.desloguear()}>
-                            <Text style={styles.signOutButton}>Sign Out</Text>
-                        </TouchableOpacity>
-                        :
-                        <></>
-                }
 
+                <TouchableOpacity onPress={() => this.desloguear()}>
+                    <Text style={styles.signOutButton}>Sign Out</Text>
+                </TouchableOpacity>
 
                 {
                     this.state.loaderPost
@@ -165,4 +159,4 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end'
     }
 })
-export default Profile
+export default MyProfile

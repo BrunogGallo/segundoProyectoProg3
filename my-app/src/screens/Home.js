@@ -40,11 +40,6 @@ class Home extends Component {
         )
     }
 
-    desloguear() {
-        auth.signOut();
-        this.props.navigation.navigate("Login")
-    }
-
     render() {
 
         return (
@@ -52,14 +47,6 @@ class Home extends Component {
 
                 <View style={styles.contenedor}>
                     <Text>Hola {auth.currentUser.email}</Text>
-                    <TouchableOpacity onPress={() => this.desloguear()}>
-                        <Text>Sign Out</Text>
-                    </TouchableOpacity>
-
-                    <Image style={styles.image}
-                            source={require('../../assets/Foodle.png')}
-                            resizeMode='contain'/>
-
                     {
                         this.state.loader
                             ? 
