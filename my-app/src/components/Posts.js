@@ -28,7 +28,7 @@ class Posts extends Component {
       .doc(this.props.postData.id)
       .update({
         likes: firebase.firestore.FieldValue.arrayUnion(
-          this.props.postData.data.owner
+          auth.currentUser.email
         )
       })
       .then(() =>
@@ -47,7 +47,6 @@ class Posts extends Component {
         <Text style={styles.text}> {this.props.postData.data.owner}</Text>
         <Text style={styles.text}> {this.props.postData.data.title}</Text>
         <Text style={styles.button}>
-          {" "}
           {this.props.postData.data.postContent}
         </Text>
         <Text style={styles.button}>
