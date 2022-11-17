@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image } from 'react-native'
 import { StyleSheet } from "react-native";
+import Posts from "../components/Posts";
 import { auth, db } from "../firebase/config";
 import Posts from "../components/Posts"
 
@@ -36,17 +37,17 @@ class MyProfile extends Component {
 
                 let posts = [];
 
-        docs.forEach(doc => {
-          const data = doc.data();
-          const id = doc.id;
-          posts.push({ data, id }); //? por qué usamos los corchetes acá?
-          //! la información se guarda dentro del data, por eso despues hacemos postData.data. En el console.log se ve claramente esto. 
-        });
-
-        this.setState({
-          // posts: [...this.state.posts, postDataConId]
-          posts: posts,
-          loader: false,
+                docs.forEach(doc => {
+                  const data = doc.data();
+                  const id = doc.id;
+                  posts.push({ data, id }); //? por qué usamos los corchetes acá?
+                  //! la información se guarda dentro del data, por eso despues hacemos postData.data. En el console.log se ve claramente esto. 
+                });
+        
+                this.setState({
+                  // posts: [...this.state.posts, postDataConId]
+                  postsUsuario: posts,
+                  loaderPost: false,
                 })
             }
 
