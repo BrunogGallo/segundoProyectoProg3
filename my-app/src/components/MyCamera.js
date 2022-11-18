@@ -10,6 +10,7 @@ class MyCamera extends Component {
       permission: false,
       photo: "",
       showCamera: true,
+      photoTaken: true
     };
   }
 
@@ -43,7 +44,11 @@ class MyCamera extends Component {
           .then(() => {
             ref.getDownloadURL()
               .then((url) => {
-                this.props.onImageUpload(url);
+                this.props.onImageUpload(url);   
+                this.setState({
+                  photoTaken: false
+                })
+                //? Qué hace aca?
               })
               .catch((e) => console.log(e));
           })
@@ -67,14 +72,14 @@ class MyCamera extends Component {
           <React.Fragment>
             <Image source={{ uri: this.state.photo }}
               style={styles.preview} />
-            <View style={styles.buttonArea}>
+              {this.state.photoTaken?             <View style={styles.buttonArea}>
               <TouchableOpacity onPress={() => this.savePhoto()}>
-                <Text style={styles.aceptoRech}>Aceptar</Text>
+                <Text style={styles.botones}>Aceptar</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.clearPhoto()}>
-                <Text style={styles.aceptoRech}>Rechazar</Text>
+                <Text style={styles.botones}>Rechazar</Text>
               </TouchableOpacity>
-            </View>
+            </View>: <> </>}
           </React.Fragment>
           :
           <View>
@@ -104,13 +109,13 @@ class MyCamera extends Component {
 }
 const styles = StyleSheet.create({
   cameraBody: {
-    height: '100vh',
-    width: '100vw',
+    height: '50vh',
+    width: '100%',
     position: 'absolute'
   },
   preview: {
-    height: 300,
-    width: 300
+    height: 200,
+    width: 200
   },
   buttonArea: {
     padding: 10,
@@ -119,37 +124,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   botones: {
-    backgroundColor: 'green',
+    backgroundColor: 'blue',
     fontSize: 20,
-    borderRadius: 5,
+    borderRadius: 1,
     margin: 10
   },
   shootButton: {
     alignItems: 'center'
   }
 })
-// const styles = StyleSheet.create({
-//   shootButton: {
-//     backgroundColor: "white",
-//     height: 100,
-//     width: 100,
-//   },
-//   cameraBody: {
-//     width: 200,
-//     height: 200,
-//     justifyContent: 'center'
-//   },
-//   buttonArea: {
-//     width: 100,
-//     height: 100  },
-//   preview: {
-//     width: 200,
-//     height: 200,
-//     justifyContent: 'center'
-//   },
-//   aceptoRech: {
-//     color: 'white'
-//   }
-// })
 
 export default MyCamera;

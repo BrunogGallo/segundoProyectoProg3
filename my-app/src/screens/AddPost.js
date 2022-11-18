@@ -40,17 +40,19 @@ class AddPost extends Component {
             postContent: this.state.postContent,
             createdAt: Date.now(),
             likes: [],
-            // photo: this.state.url
+            photo: this.state.url
         })
-        .then (()=> this.props.navigation.navigate ('Home'))
+        .then (()=> {
+            this.props.navigation.navigate ('Home')
+    })
         .catch (error => console.log(error))
     }
-    // onImageUpload(url) {
-    //     this.setState({
-    //         showCamera: false,
-    //         url: url
-    //     });
-    // }    
+    onImageUpload(url) {
+        this.setState({
+            showCamera: false,
+            url: url
+        });
+    }    
     render() {
         return (
             <React.Fragment>
@@ -64,16 +66,15 @@ class AddPost extends Component {
                             onChangeText={text => this.setState({ title: text })}
                             value={this.state.title}
                         />
-                        {/* <MyCamera onImageUpload = {(url)=> this.onImageUpload(url)} navigation={this.props.navigation}/> */}
                         <TextInput style={styles.formInput}
                             keyboardType='default'
                             placeholder='Content'
                             onChangeText={text => this.setState({ postContent: text })}
                             value={this.state.postContent}
                         />
-
-                        <TouchableOpacity style={styles.formButton} onPress={()=> this.onSubmit()}>
-                            <Text >Post</Text>
+                        <MyCamera onImageUpload = {(url)=> this.onImageUpload(url)}/>
+                        <TouchableOpacity onPress={()=> {this.onSubmit(); this.props.navigation.navigate("Home")}}>
+                            <Text style={styles.formButton}>Post</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -91,13 +92,18 @@ const styles = StyleSheet.create({
         borderRadius: 4
     },
     formInput: {
-        color: 'white',
-        textAlign: 'center',
-        margin: 3,
+        marginVertical: 10,
         backgroundColor: 'grey',
         margin: 10,
         padding: 10,
         borderRadius: 4
+        // height: 100,
+        // paddingVertical: 15,
+        // paddingHorizontal: 10,
+        // borderWidth: 1,
+        // borderStyle: 'solid',
+        // borderRadius: 6,
+        // marginVertical: 10,
     },
     formButton: {
       width: 'fit-content',
@@ -106,6 +112,7 @@ const styles = StyleSheet.create({
       padding: 6,
       margin: 4,
       marginBottom: 10,
+      marginTop: 10,
       borderRadius: 4,
       backgroundColor: 'white'
     }
