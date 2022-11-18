@@ -8,7 +8,6 @@ import Search from "../screens/Search";
 import { FontAwesome } from '@expo/vector-icons'
 import MyProfile from "../screens/MyProfile";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { NavigationContainer } from '@react-navigation/native'
 import { AntDesign } from '@expo/vector-icons'
 
 
@@ -17,16 +16,24 @@ const Stack = createNativeStackNavigator()
 function AppMainPage() {
 
     return (
-        <React.Fragment>
-            <Tab.Navigator screenOptions={{tabBarShowLabel: false, tabBarActiveTintColor: 'green'}}>
+            <Tab.Navigator screenOptions={{tabBarShowLabel: false, tabBarActiveTintColor: 'green', headerShown: 'false'}}>
                 <Tab.Screen name='Home' component={Home}
                     options={
                         { tabBarIcon: ({color}) => (<FontAwesome name='home' size={24} color={color} />) }
                     } />
 
-                <Tab.Screen name='Buscar' component={Search}
+                <Tab.Screen name="Search"
+                    
+                    component={Search} 
                     options={
-                        { tabBarIcon: ({color}) => (<AntDesign name="search1" size={24} color={color} />) }
+                        { 
+                            headerLarge: true,
+                            headerTitle: 'Search',
+                            headerShown:'false',
+                            headerSearchBarOptions: {
+                                placeholder: 'Usuarios',
+                            },
+                            tabBarIcon: ({color}) => (<AntDesign name="search1" size={24} color={color} />) }
                     } />
                 <Tab.Screen name='Mi Perfil' component={MyProfile}
                     options={
@@ -39,7 +46,7 @@ function AppMainPage() {
                     } />
                 
             </Tab.Navigator>
-        </React.Fragment>
+
     )
 }
 const styles = StyleSheet.create({
