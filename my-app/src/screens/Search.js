@@ -43,7 +43,7 @@ class Search extends Component {
             console.log(this.state.users)
             this.setState({requiredField: ''})
 
-            const filteredUsers = this.state.users.filter(user => user.data.username?.toLowerCase().includes(textToFilter));
+            let filteredUsers = this.state.users.filter(user => user.data.username?.toLowerCase().includes(textToFilter));
             
             console.log(filteredUsers)
 
@@ -55,7 +55,20 @@ class Search extends Component {
     }
 
     controlChanges(e){
-        this.setState({value: e.target.value})
+
+                
+        if (e.target.value === '') {
+            this.setState({
+                filteredUsers: []
+            })
+        } else {
+    
+            let filteredUsers = this.state.users.filter(user => user.data.username?.toLowerCase().includes(e.target.value));
+        this.setState({ filteredUsers: filteredUsers}) 
+        }   
+
+
+
     }
 
     clear(){
@@ -72,7 +85,7 @@ class Search extends Component {
             <View>
                 
                 <TextInput placeholder="Introduce un Usuario" 
-                onChangeText={ text => this.setState({value: text})}
+                onChangeText={ text => (this.setState({value: text}))}
                 value={this.state.value}
                 onChange={(e) => this.controlChanges(e)}
                 />
@@ -100,5 +113,6 @@ class Search extends Component {
         )
     }
 }
+
 
 export default Search
