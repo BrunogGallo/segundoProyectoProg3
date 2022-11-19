@@ -40,11 +40,13 @@ class Posts extends Component {
         })
       );
   }
-  
+
   render() {
     return (
       <React.Fragment>
-        <Text style={styles.text}> {this.props.postData.data.owner}</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
+          <Text style={styles.text}> {this.props.postData.data.owner}</Text>
+        </TouchableOpacity>
         <Text style={styles.text}> {this.props.postData.data.title}</Text>
         <Text style={styles.button}>
           {this.props.postData.data.postContent}

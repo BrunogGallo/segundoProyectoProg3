@@ -53,7 +53,7 @@ class Profile extends Component {
 
     desloguear() {
         auth.signOut();
-        this.props.navigation.navigate(`Login${'sdsd'}`)
+        this.props.navigation.navigate('Login')
     }
 
     render() {
@@ -98,16 +98,6 @@ class Profile extends Component {
                             </View>
                         </View>
                 }
-                {
-                    this.state.datosUsuario?.owner === auth.currentUser?.email
-                        ?
-                        <TouchableOpacity onPress={() => this.desloguear()}>
-                            <Text style={styles.signOutButton}>Sign Out</Text>
-                        </TouchableOpacity>
-                        :
-                        <></>
-                }
-
 
                 {
                     this.state.loaderPost

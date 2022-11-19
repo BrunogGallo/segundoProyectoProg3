@@ -2,18 +2,16 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "../screens/Home";
-import Profile from "../screens/Profile";
 import AddPost from "../screens/AddPost";
 import Search from "../screens/Search";
 import { FontAwesome } from '@expo/vector-icons'
 import MyProfile from "../screens/MyProfile";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { NavigationContainer } from '@react-navigation/native'
 import { AntDesign } from '@expo/vector-icons'
+import Profile from "../screens/Profile";
 
-
-const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
 function AppMainPage() {
 
     return (
@@ -37,8 +35,8 @@ function AppMainPage() {
                     options={
                         { tabBarIcon: ({color}) => (<FontAwesome name='plus-square' size={24} color={color} />) }
                     } />
-                
             </Tab.Navigator>
+            <Stack.Screen name='Profile' component={Profile} options={{headerShown: false}} /> 
         </React.Fragment>
     )
 }
