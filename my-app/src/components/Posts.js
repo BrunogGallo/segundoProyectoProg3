@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import { auth, db } from "../firebase/config";
 import firebase from "firebase";
 class Posts extends Component {
@@ -42,13 +42,18 @@ class Posts extends Component {
   }
 
   render() {
+    console.log(this.props.postData);
     return (
       <React.Fragment>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
           <Text style={styles.text}> {this.props.postData.data.owner}</Text>
         </TouchableOpacity>
         <Text style={styles.text}> {this.props.postData.data.title}</Text>
-        <Text style={styles.button}>
+        <Image source={{ uri: this.props.postData.data.photo }}
+              style={styles.image} 
+              resizeMode='contain'
+              />
+       <Text style={styles.button}>
           {this.props.postData.data.postContent}
         </Text>
         <Text style={styles.button}>
@@ -76,6 +81,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 25,
   },
+  image: {
+    height: 100,
+    width: 100
+  }
 });
 
 export default Posts;

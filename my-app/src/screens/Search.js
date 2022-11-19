@@ -1,6 +1,9 @@
 import React, {Component} from "react";
-import {Text, View, StyleSheet, TouchableOpacity, TextInput, FlatList} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, TextInput, FlatList, Image} from 'react-native';
 import {db} from '../firebase/config';
+import {  MaterialIcons  } from '@expo/vector-icons';
+import { Searchbar } from 'react-native-paper';
+
 
 class Search extends Component {
 
@@ -43,7 +46,7 @@ class Search extends Component {
             console.log(this.state.users)
             this.setState({requiredField: ''})
 
-            const filteredUsers = this.state.users.filter(user => user.data.username?.toLowerCase().includes(textToFilter));
+            let filteredUsers = this.state.users.filter(user => user.data.username?.toLowerCase().includes(textToFilter));
             
             console.log(filteredUsers)
 
@@ -55,7 +58,27 @@ class Search extends Component {
     }
 
     controlChanges(e){
-        this.setState({value: e.target.value})
+        e.preventDefault() 
+
+        this.setState({ error: ''}); 
+                
+        if (e.target.value === '') {
+            this.setState({
+                filteredUsers: []
+                
+            })
+        } else {
+            
+    
+            let filteredUsers = this.state.users.filter(user => user.data.username?.toLowerCase().includes((e.target.value).toLowerCase()));
+
+            if (filteredUsers.length === 0) return this.setState({ error: 'Sorry, that user does not exist', filteredUsers: []}) 
+
+            this.setState({ filteredUsers: filteredUsers}) 
+        }   
+
+
+
     }
 
     clear(){
@@ -63,34 +86,38 @@ class Search extends Component {
             search: false,
             value: '',
             result: [],
+            filteredUsers: []
+
         })
     }
 
 
     render() {
         return (
-            <View>
+            <View style={styles.searchBar}>
                 
-                <TextInput placeholder="Introduce un Usuario" 
-                onChangeText={ text => this.setState({value: text})}
+                <Searchbar style={styles.inputSearch} placeholder="Introduce un Usuario" 
+                onChangeText={ text => (this.setState({value: text}))}
                 value={this.state.value}
                 onChange={(e) => this.controlChanges(e)}
+                
                 />
 
-                <TouchableOpacity onPress={(e) => this.preventSubmit(e)}>
-                    <Text>Buscar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.clear()}>
-                    <Text>Borrar busqueda</Text>
-                </TouchableOpacity>
+                
 
-                <Text>{this.state.requiredField}</Text>
+                <Text style={styles.err}>{this.state.requiredField}</Text>
 
                 <Text>{this.state.error}</Text>
 
-                <FlatList data={this.state.filteredUsers}
+                <FlatList 
+                data={this.state.filteredUsers}
                 keyExtractor={item => item.id.toString()}
-                renderItem={({item}) => <Text>{item.data.username}</Text>}
+                renderItem={({item}) => 
+                    <View style={styles.itemContainer}>
+                        <Image source={item.data.photo} style={styles.image} />
+                        <Text style={styles.textName}> {item.data.username}</Text>
+                    </View>
+                    }
                 />
 
 
@@ -100,5 +127,50 @@ class Search extends Component {
         )
     }
 }
+const styles = StyleSheet.create({
+    searchBar: {
+        textAlign: 'center',
+        flex: 1
+    
+    },
+    inputSearch: {
+        marginTop: 7,
+        fontSize: 15,
+        borderWidth: 1,
+        borderColor: '#CCCCCC',
+        color: '#535353',
+        width: '90%',
+        borderRadius: 5,
+        height: '8%',
+        paddingLeft: 10,
+        shadowOpacity: 20,
+        alignSelf: 'center',
+        marginBottom: 20,
+    },
+    
+   
+    err: {
+        fontSize: 15,
+        fontWeight: 'bold'
+    },
+   
+    itemContainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: 'gray',
+        borderWidth: 0.6
+    },
+    image: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+    },
+    textName: {
+        fontSize: 17,
+        marginLeft: 10,
+        fontWeight: '600',
+    }
+
+  });
 
 export default Search
