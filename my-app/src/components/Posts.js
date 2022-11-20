@@ -42,10 +42,10 @@ class Posts extends Component {
   }
 
   render() {
-    console.log(this.props.postData);
+    console.log(this.props.postData.data.owner);
     return (
       <React.Fragment>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', {owner:this.props.postData.data.owner})}>
           <Text style={styles.text}> {this.props.postData.data.owner}</Text>
         </TouchableOpacity>
         <Text style={styles.text}> {this.props.postData.data.title}</Text>

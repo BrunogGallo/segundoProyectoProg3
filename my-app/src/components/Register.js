@@ -12,7 +12,6 @@ class Register extends Component {
             password: '',
             age: '',
             bio: '',
-            registered: false,
             loader: true,
             errors: '',
             photo: ''
@@ -26,9 +25,13 @@ class Register extends Component {
     }
 
     onSubmit() {
+        this.state.bio.length > 15
+        ? this.setState({
+            errors: 'La descripcion debe tener un maximo de 15 caracteres'
+        })
+        :
         auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(response => {
-                this.setState({ registered: true })
                 db.collection('datosUsuario').add({
                     owner: this.state.email,
                     createdAt: Date.now(),

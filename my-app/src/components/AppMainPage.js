@@ -8,48 +8,65 @@ import { FontAwesome } from '@expo/vector-icons'
 import MyProfile from "../screens/MyProfile";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { AntDesign } from '@expo/vector-icons'
+import Profile from "../screens/Profile";
+import { useLinkProps } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
+
+function HomeStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
+            <Stack.Screen name='Profile' component={Profile} />
+        </Stack.Navigator>
+    )
+}
+
+function SearchStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Search" component={Search} options={{ headerShown: false }}/>
+            <Stack.Screen name='Profile' component={Profile}/>
+        </Stack.Navigator>
+    )
+}
 function AppMainPage() {
 
     return (
-            <Tab.Navigator screenOptions={{tabBarShowLabel: false, tabBarActiveTintColor: 'green', headerShown: 'false'}}>
-                <Tab.Screen name='Home' component={Home}
+        <React.Fragment>
+            <Tab.Navigator screenOptions={{ tabBarShowLabel: false, tabBarActiveTintColor: 'green', headerShown: 'false' }}>
+                <Tab.Screen name='Home2' component={HomeStack}
                     options={
-                        { tabBarIcon: ({color}) => (<FontAwesome name='home' size={24} color={color} />) }
+                        {
+                            tabBarIcon: ({ color }) => (<FontAwesome name='home' size={24} color={color} />),
+                            headerShown: false
+                        }
                     } />
 
-                <Tab.Screen name="Search"
-                    
-                    component={Search} 
+                <Tab.Screen name="Search2" component={SearchStack}
                     options={
-                        { 
+                        {
                             headerLarge: true,
                             headerTitle: 'Search',
-                            headerShown:'false',
+                            headerShown: false,
                             headerSearchBarOptions: {
                                 placeholder: 'Usuarios',
                             },
-                            tabBarIcon: ({color}) => (<AntDesign name="search1" size={24} color={color} />) }
+                            tabBarIcon: ({ color }) => (<AntDesign name="search1" size={24} color={color} />)
+                        }
                     } />
                 <Tab.Screen name='Mi Perfil' component={MyProfile}
                     options={
-                        { tabBarIcon: ({color}) => (<FontAwesome name='user' size={24} color={color} />) }
+                        { tabBarIcon: ({ color }) => (<FontAwesome name='user' size={24} color={color} />) }
                     } />
 
                 <Tab.Screen name='Agregar' component={AddPost}
                     options={
-                        { tabBarIcon: ({color}) => (<FontAwesome name='plus-square' size={24} color={color} />) }
+                        { tabBarIcon: ({ color }) => (<FontAwesome name='plus-square' size={24} color={color} />) }
                     } />
             </Tab.Navigator>
+        </React.Fragment>
     )
 }
-const styles = StyleSheet.create({
-    contenedor: {
-        textAlign: 'center',
-        alignItems: 'flex-end',
-        padding: 10000
-    }
-})
 export default AppMainPage

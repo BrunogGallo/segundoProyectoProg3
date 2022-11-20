@@ -115,7 +115,9 @@ class Search extends Component {
                 renderItem={({item}) => 
                     <View style={styles.itemContainer}>
                         <Image source={item.data.photo} style={styles.image} />
+                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Profile', {owner: item.data.owner})}>
                         <Text style={styles.textName}> {item.data.username}</Text>
+                        </TouchableOpacity>
                     </View>
                     }
                 />
