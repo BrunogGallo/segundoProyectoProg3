@@ -17,13 +17,25 @@ class Home extends Component {
     this.state = {
       posts: '', //? aca es con [] o con ''
       loader: true,
+      datosUsuario: null
     };
   }
 
   componentDidMount() {
+    db.collection('datosUsuario').where('owner', '==', auth.currentUser.email).onSnapshot(
+      docs => {
+          docs.forEach(doc => { //doc es un array
+              const data = doc.data();
+              this.setState({
+                  datosUsuario: data
+              })
+
+          })
+      }
+  )
     db.collection("posts")
-    //   .orderBy("createdAt", "asc")
-    //   .limit(3)
+      //   .orderBy("createdAt", "asc")
+      //   .limit(3)
       .onSnapshot(docs => {
         let posts = [];
 
@@ -50,31 +62,32 @@ class Home extends Component {
   render() {
     console.log(this.state.posts)
     return (
-      <React.Fragment>
-        <View style={styles.contenedor}>
-
-          {this.state.loader ? (
-            <ActivityIndicator size="large" color="black" />
-          ) : (
-            // <> </>
+      <View>
+        {this.state.loader ? (
+          <ActivityIndicator size="large" color="black" />
+        ) : (
+          // <> </>
+          <View style={styles.allPost}>
             <FlatList
               data={this.state.posts}
               keyExtractor={item => item.id.toString()} //Todo: pregutnar qué sería item en este caso?
-              renderItem={({ item }) => <Posts postData={item} />}
+              renderItem={({ item }) => <Posts navigation={this.props.navigation} datosUsuario={this.state.datosUsuario} postData={item} />} //* Aca pase navigation como prop porque no me la estaba reconociendo. 
             />
-          )}
-        </View>
-      </React.Fragment>
+          </View>
+        )}
+      </View>
     );
   }
 }
 const styles = StyleSheet.create({
+  allPost: {
+    flexDirection: 'column',
+    maxHeight: '800px'
+
+  }, 
   contenedor: {
     textAlign: "center",
     padding: 10,
-  },
-  image: {
-    height: 400,
-  },
+  }
 });
 export default Home;
