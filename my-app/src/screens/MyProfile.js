@@ -113,7 +113,7 @@ class MyProfile extends Component {
                         <FlatList
                             data={this.state.postsUsuario}
                             keyExtractor={item => item.id.toString()}
-                            renderItem={({ item }) => <Posts postData={item} />}
+                            renderItem={({ item }) => <Posts datosUsuario={this.state.datosUsuario} postData={item} />}
                         />
                 }
             </React.Fragment>

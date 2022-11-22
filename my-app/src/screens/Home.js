@@ -82,7 +82,7 @@ class Home extends Component {
 const styles = StyleSheet.create({
   allPost: {
     flexDirection: 'column',
-    maxHeight: '800px'
+    maxHeight: '1200px'
 
   }, 
   contenedor: {
