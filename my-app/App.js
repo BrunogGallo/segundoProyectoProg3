@@ -5,6 +5,7 @@ import Register from './src/components/Register';
 import Login from './src/components/Login';
 import AppMainPage from './src/components/AppMainPage';
 import CommentsScreen from './src/screens/CommentsScreen';
+import Profile from './src/screens/Profile';
 
 
 const Stack = createNativeStackNavigator()

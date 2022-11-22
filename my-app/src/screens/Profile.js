@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image } from 'react-native'
 import { StyleSheet } from "react-native";
+import Posts from "../components/Posts";
 import { auth, db } from "../firebase/config";
 
 
@@ -12,12 +13,12 @@ class Profile extends Component {
             datosUsuario: null, //tiene que arrancar como null
             postsUsuario: [],
             loaderPost: true,
-            loaderData: true
+            loaderData: true,
         }
     }
 
     componentDidMount() {
-        db.collection('datosUsuario').where('username', '==', ).onSnapshot(
+        db.collection('datosUsuario').where('owner', '==', this.props.route.params.owner).onSnapshot(
             docs => {
                 docs.forEach(doc => { //doc es un array
                     const data = doc.data();
@@ -29,22 +30,22 @@ class Profile extends Component {
                 })
             }
         )
-        db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(
+        db.collection('posts').where('owner', '==', this.props.route.params.owner).onSnapshot(
             docs => {
 
                 let posts = [];
+
                 docs.forEach(doc => {
-                    const idPost = doc.id;
-                    const data = doc.data();
-                    const postDataConId = {
-                        ...data,
-                        id: idPost
-                    }
-                    posts.push(postDataConId)
-                })
+                  const data = doc.data();
+                  const id = doc.id;
+                  posts.push({ data, id }); //? por qué usamos los corchetes acá?
+                  //! la información se guarda dentro del data, por eso despues hacemos postData.data. En el console.log se ve claramente esto. 
+                });
+        
                 this.setState({
-                    postsUsuario: posts,
-                    loaderPost: false
+                  // posts: [...this.state.posts, postDataConId]
+                  postsUsuario: posts,
+                  loaderPost: false,
                 })
             }
 
@@ -53,12 +54,15 @@ class Profile extends Component {
 
     desloguear() {
         auth.signOut();
-        this.props.navigation.navigate(`Login${'sdsd'}`)
+        this.props.navigation.navigate('Login')
     }
 
     render() {
+        console.log(this.state.datosUsuario);
         return (
+            
             <React.Fragment>
+                
                 {
                     this.state.loaderData
                         ?
@@ -98,16 +102,6 @@ class Profile extends Component {
                             </View>
                         </View>
                 }
-                {
-                    this.state.datosUsuario?.owner === auth.currentUser?.email
-                        ?
-                        <TouchableOpacity onPress={() => this.desloguear()}>
-                            <Text style={styles.signOutButton}>Sign Out</Text>
-                        </TouchableOpacity>
-                        :
-                        <></>
-                }
-
 
                 {
                     this.state.loaderPost

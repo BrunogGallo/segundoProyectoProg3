@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         marginBottom: 20,
         padding: 20,
-        width: '40%',
+        width: '80%',
         textAlign: 'center',
         backgroundColor: 'white',
         borderRadius: 4,

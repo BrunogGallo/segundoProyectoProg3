@@ -12,8 +12,8 @@ class MyProfile extends Component {
         super()
         this.state = {
             datosUsuario: null, //tiene que arrancar como null
-            posts: '',
-            loader: true,
+            postsUsuario: [],
+            loaderPost: true,
             loaderData: true
         }
     }
@@ -96,7 +96,7 @@ class MyProfile extends Component {
                                 <Text style={styles.bold}>{this.state.datosUsuario?.username}</Text>
                                 <Text style={styles.profileData}>{this.state.datosUsuario?.owner}</Text>
                                 <Text style={styles.profileData}>"{this.state.datosUsuario?.bio}"</Text>
-                                <Text style={styles.profileData}>Publicaciones: {this.state.posts.length}</Text>
+                                <Text style={styles.profileData}>Publicaciones: {this.state.postsUsuario.length}</Text>
                             </View>
                         </View>
                 }
@@ -111,7 +111,7 @@ class MyProfile extends Component {
                         <ActivityIndicator size='large' color='black' />
                         :
                         <FlatList
-                            data={this.state.posts}
+                            data={this.state.postsUsuario}
                             keyExtractor={item => item.id.toString()}
                             renderItem={({ item }) => <Posts postData={item} />}
                         />
