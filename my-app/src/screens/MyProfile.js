@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image } from 'react-native'
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image, ScrollView } from 'react-native'
 import { StyleSheet } from "react-native";
 import Posts from "../components/Posts";
 import { auth, db } from "../firebase/config";
@@ -37,16 +37,16 @@ class MyProfile extends Component {
                 let posts = [];
 
                 docs.forEach(doc => {
-                  const data = doc.data();
-                  const id = doc.id;
-                  posts.push({ data, id }); //? por qué usamos los corchetes acá?
-                  //! la información se guarda dentro del data, por eso despues hacemos postData.data. En el console.log se ve claramente esto. 
+                    const data = doc.data();
+                    const id = doc.id;
+                    posts.push({ data, id }); //? por qué usamos los corchetes acá?
+                    //! la información se guarda dentro del data, por eso despues hacemos postData.data. En el console.log se ve claramente esto. 
                 });
-        
+
                 this.setState({
-                  // posts: [...this.state.posts, postDataConId]
-                  postsUsuario: posts,
-                  loaderPost: false,
+                    // posts: [...this.state.posts, postDataConId]
+                    postsUsuario: posts,
+                    loaderPost: false,
                 })
             }
 
@@ -59,8 +59,9 @@ class MyProfile extends Component {
     }
 
     render() {
+        console.log(this.state.datosUsuario)
         return (
-            <React.Fragment>
+            <ScrollView style={{backgroundColor: 'grey'}}>
                 {
                     this.state.loaderData
                         ?
@@ -100,32 +101,30 @@ class MyProfile extends Component {
                             </View>
                         </View>
                 }
-
-                <TouchableOpacity onPress={() => this.desloguear()}>
+                <TouchableOpacity style={{ width: 'fit-content', alignSelf: 'flex-end' }} onPress={() => this.desloguear()}>
                     <Text style={styles.signOutButton}>Sign Out</Text>
                 </TouchableOpacity>
+
 
                 {
                     this.state.loader
                         ?
                         <ActivityIndicator size='large' color='black' />
                         :
-                        <FlatList
-                            data={this.state.postsUsuario}
-                            keyExtractor={item => item.id.toString()}
-                            renderItem={({ item }) => <Posts datosUsuario={this.state.datosUsuario} postData={item} />}
-                        />
+                        <View style={{flexDirection: 'column'}}>
+                            <FlatList
+                                data={this.state.postsUsuario}
+                                keyExtractor={item => item.id.toString()}
+                                renderItem={({ item }) => <Posts datosUsuario={this.state.datosUsuario} postData={item} />}
+                                />
+                        </View>
                 }
-            </React.Fragment>
+            </ScrollView>
         )
     }
 
 }
 const styles = StyleSheet.create({
-    mainContainer: {
-        textAlign: 'center',
-        padding: 10
-    },
     image: {
         height: 50,
         width: 50
@@ -134,7 +133,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        marginTop: 20,
         padding: 10,
         backgroundColor: 'white'
     },
@@ -154,7 +152,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 3,
         backgroundColor: 'red',
-        margin: 18,
+        margin: 4,
         padding: 10,
         borderRadius: 20,
         width: 'fit-content',

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image } from 'react-native'
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image, ScrollView } from 'react-native'
 import { StyleSheet } from "react-native";
 import Posts from "../components/Posts";
 import { auth, db } from "../firebase/config";
@@ -18,6 +18,9 @@ class Profile extends Component {
     }
 
     componentDidMount() {
+        auth.currentUser.email === this.props.route.params.owner
+        ? this.props.navigation.navigate('Mi Perfil')
+        :
         db.collection('datosUsuario').where('owner', '==', this.props.route.params.owner).onSnapshot(
             docs => {
                 docs.forEach(doc => { //doc es un array
@@ -58,10 +61,11 @@ class Profile extends Component {
     }
 
     render() {
-        console.log(this.state.datosUsuario);
+        console.log(this.state.datosUsuario)
+        console.log(this.props.route.params)
         return (
             
-            <React.Fragment>
+            <ScrollView style={{backgroundColor: 'grey'}}>
                 
                 {
                     this.state.loaderData
@@ -114,15 +118,14 @@ class Profile extends Component {
                             renderItem={({ item }) => <Posts postData={item} />}
                         />
                 }
-            </React.Fragment>
+            </ScrollView>
         )
     }
 
 }
 const styles = StyleSheet.create({
     mainContainer: {
-        textAlign: 'center',
-        padding: 10
+        backgroundColor: 'green'
     },
     image: {
         height: 50,
@@ -132,9 +135,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        marginTop: 20,
+        paddingTop: 30,
         padding: 10,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        position: 'relative',
+        borderRadius: 15
     },
     bold: {
         fontWeight: 'bold',
