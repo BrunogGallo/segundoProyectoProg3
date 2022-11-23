@@ -29,12 +29,12 @@ function CommentReplies({ commentReplies }) {
 }
 const styles = StyleSheet.create({
     commentIcon: {
-        marginLeft: 20,
         marginRight: 10
     },
     commentInfo: {
         flexDirection: 'row',
-        marginBottom: 30
+        marginBottom: 25,
+        flex: 1,
     },
     username: {
         marginRight: 10,

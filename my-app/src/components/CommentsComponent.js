@@ -67,6 +67,7 @@ class CommentsComponent extends Component {
     }
 
     render() {
+        console.log(this.state.datosUsuario);
         return (
             <View>
                 <View style={styles.commentBox}>
@@ -84,7 +85,7 @@ class CommentsComponent extends Component {
                             </View>
                             <View>
                                 <TouchableOpacity onPress={() => this.replyToComment()}>
-                                    <Text style={{fontWeight: '500'}}> Reply </Text>
+                                    <Text style={{fontWeight: '500', flexShrink: 1}}> Reply </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -93,7 +94,7 @@ class CommentsComponent extends Component {
                                     <View
                                         style={{
                                             marginBottom: 5,
-                                            width: '100%',
+                                            width: '289px',
                                             marginLeft: '12px',
                                             borderLeftWidth: 'thick',
                                             borderLeftColor: '#e6e6e6'
@@ -182,12 +183,9 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.27,
         shadowRadius: 4.65,
-        elevation: 6,
+        elevation: 6
     },
     replies: {padding: 20},
-    comment: {
-
-    },
     userIcon: {}
 })
 

@@ -115,7 +115,7 @@ class MyProfile extends Component {
                             <FlatList
                                 data={this.state.postsUsuario}
                                 keyExtractor={item => item.id.toString()}
-                                renderItem={({ item }) => <Posts datosUsuario={this.state.datosUsuario} postData={item} />}
+                                renderItem={({ item }) => <Posts navigation={this.props.navigation} datosUsuario={this.state.datosUsuario} postData={item} />}
                                 />
                         </View>
                 }

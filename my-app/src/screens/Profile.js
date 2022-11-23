@@ -115,7 +115,7 @@ class Profile extends Component {
                         <FlatList
                             data={this.state.postsUsuario}
                             keyExtractor={post => post.id.toString()}
-                            renderItem={({ item }) => <Posts postData={item} />}
+                            renderItem={({ item }) => <Posts navigation={this.props.navigation} postData={item} />}
                         />
                 }
             </ScrollView>
