@@ -68,7 +68,7 @@ class Posts extends Component {
       );
   }
   goToCommentsPage() {
-    this.props.navigation.navigate('CommentsScreen', { itemId: this.props.postData.id, posts: this.props.postData.data })
+    this.props.navigation.navigate('Comentarios', { itemId: this.props.postData.id, posts: this.props.postData.data })
     //* Aca lo que estoy haciendo es pasarle información mediante un objeto literal para despues mostrarlo en esa página 
   }
   //! La verdadera es Comments
@@ -101,13 +101,30 @@ class Posts extends Component {
           <View style={styles.likesAndCommentsSection}>
             <View>
               {this.state.liked ? (
+                <View style={{ flexDirection: 'row' }}>
+                <View>
                 <TouchableOpacity onPress={() => this.dislike()}>
-                  <Text style={styles.button}> {this.state.icon}</Text>
+                  <Text style={styles.button}>  {this.state.icon}</Text>
                 </TouchableOpacity>
+                </View>
+                <View style={{ paddingTop: 4 }}>
+                  <Text> ({this.props.postData.data.likes.length})</Text>
+                </View>
+              </View>
+                
+                
               ) : (
+                <View style={{ flexDirection: 'row' }}>
+                <View>
                 <TouchableOpacity onPress={() => this.like()}>
                   <Text style={styles.button}> {this.state.icon}</Text>
                 </TouchableOpacity>
+                </View>
+                <View style={{ paddingTop: 4 }}>
+                  <Text> ({this.props.postData.data.likes.length})</Text>
+                </View>
+              </View>
+                
               )}
             </View>
             <View style={{ flexDirection: 'row' }}>
@@ -122,9 +139,6 @@ class Posts extends Component {
             </View>
           </View>
           <View>
-            <View style={{ padding: 9 }}>
-              <Text> {this.props.postData.data.likes.length} Likes </Text>
-            </View>
             <View style={{ flexDirection: 'row', padding: 9 }}>
               <View>
                 <Text style={{ fontWeight: 'bold' }}> {this.props.postData.data.owner} </Text>
@@ -158,7 +172,7 @@ const styles = StyleSheet.create({
     elevation: 1
   },
   image: {
-    height: 1000
+    height: 300,
   },
   upperPartOfPost: {
     flexDirection: "row",
@@ -176,6 +190,10 @@ const styles = StyleSheet.create({
   },
   lowerSection: {
     flexDirection: 'column'
+  },
+  button: {
+    fontSize: 23,
+    fontWeight: 'bold'
   }
 });
 

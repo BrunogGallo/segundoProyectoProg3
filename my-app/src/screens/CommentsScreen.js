@@ -77,7 +77,7 @@ class CommentsScreen extends Component {
         return (
             <View style={{width: '375px'}}>
                     <View style={styles.commentTitle}>
-                        <Text style={styles.commentTitleText}> Comments ({this.state.comments.length}) </Text>
+                        <Text style={styles.commentTitleText}> Comentarios ({this.state.comments.length}) </Text>
                     </View>
                     <View>
                         <View style={{ paddingHorizontal: '10px' }}>
