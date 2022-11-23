@@ -36,6 +36,7 @@ class AddPost extends Component {
     onSubmit() {
         db.collection('posts').add({
             owner: auth.currentUser.email,
+            ownerUsername: this.state.datosUsuario.username,
             title: this.state.title,
             postContent: this.state.postContent,
             createdAt: Date.now(),

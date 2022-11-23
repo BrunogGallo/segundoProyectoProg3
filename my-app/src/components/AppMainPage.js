@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { AntDesign } from '@expo/vector-icons'
 import Profile from "../screens/Profile";
 import { useLinkProps } from "@react-navigation/native";
+import { auth } from "../firebase/config";
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -18,7 +19,7 @@ function HomeStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
-            <Stack.Screen name='Profile' component={Profile} />
+            <Stack.Screen name='Profile' component={Profile} options={{title: ''}} />
         </Stack.Navigator>
     )
 }
@@ -27,7 +28,7 @@ function SearchStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Search" component={Search} options={{ headerShown: false }}/>
-            <Stack.Screen name='Profile' component={Profile}/>
+            <Stack.Screen name='Profile' component={Profile} options={{ title: ''}}/>
         </Stack.Navigator>
     )
 }
@@ -35,12 +36,20 @@ function AppMainPage() {
 
     return (
         <React.Fragment>
-            <Tab.Navigator screenOptions={{ tabBarShowLabel: false, tabBarActiveTintColor: 'green', headerShown: 'false' }}>
+            <Tab.Navigator screenOptions={
+                { 
+                    tabBarShowLabel: false, 
+                    tabBarActiveTintColor: 'green',
+                    // tabBarStyle: {borderRadius: 8}, 
+                    headerShown: false
+                
+                }}>
                 <Tab.Screen name='Home2' component={HomeStack}
                     options={
                         {
                             tabBarIcon: ({ color }) => (<FontAwesome name='home' size={24} color={color} />),
                             headerShown: false
+                            
                         }
                     } />
 
@@ -58,7 +67,10 @@ function AppMainPage() {
                     } />
                 <Tab.Screen name='Mi Perfil' component={MyProfile}
                     options={
-                        { tabBarIcon: ({ color }) => (<FontAwesome name='user' size={24} color={color} />) }
+                        { 
+                        tabBarIcon: ({ color }) => (<FontAwesome name='user' size={24} color={color} />),
+                        // headerTitle: ({props}) => (props.datosUsuario.username)
+                    }
                     } />
 
                 <Tab.Screen name='Agregar' component={AddPost}

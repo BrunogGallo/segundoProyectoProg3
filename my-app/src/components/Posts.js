@@ -73,16 +73,22 @@ class Posts extends Component {
   }
   //! La verdadera es Comments
   render() {
+    console.log(this.props);
     return (
+
       <View style={styles.post}>
-        <View style={styles.upperPartOfPost}>
-          <View style={{ flex: 1 }}>
-            <IconoUsuario nombreUsuario={this.props.postData.data.owner} />
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', { owner: this.props.postData.data.owner })}>
+          <View style={styles.upperPartOfPost}>
+
+            <View style={{ flex: 1 }}>
+              <IconoUsuario nombreUsuario={this.props.postData.data.owner} />
+            </View>
+            <View style={{ flex: 8, justifyContent: 'center', alignItems: 'flex-start', marginLeft: 10 }}>
+              <Text style={{ fontWeight: 'bold' }}> {this.props.postData.data.owner}</Text>
+            </View>
+
           </View>
-          <View style={{flex: 8, justifyContent: 'center', alignItems: 'flex-start', marginLeft: -10}}>
-            <Text style={{fontWeight: 'bold'}}> {this.props.datosUsuario.username}</Text>
-          </View>
-        </View>
+        </TouchableOpacity>
         <View>
           <View style={{ backgroundColor: 'green' }}>
             <Image source={{ uri: this.props.postData.data.photo }}
@@ -116,18 +122,18 @@ class Posts extends Component {
             </View>
           </View>
           <View>
-            <View style={{ padding: 9}}>
+            <View style={{ padding: 9 }}>
               <Text> {this.props.postData.data.likes.length} Likes </Text>
             </View>
-            <View style={{ flexDirection: 'row', padding: 9}}>
+            <View style={{ flexDirection: 'row', padding: 9 }}>
               <View>
-                <Text style={{ fontWeight: 'bold' }}> {this.props.datosUsuario.username} </Text>
+                <Text style={{ fontWeight: 'bold' }}> {this.props.postData.data.owner} </Text>
               </View>
-              <View style={{ marginLeft: -3}}>
+              <View style={{ marginLeft: -3 }}>
                 <Text> {this.props.postData.data.postContent} </Text>
               </View>
             </View>
-            <View style={{ padding: 9}}>
+            <View style={{ padding: 9 }}>
               <CorrectDate createdAt={this.props.postData.data.createdAt} />
             </View>
           </View>
@@ -139,7 +145,7 @@ class Posts extends Component {
 const styles = StyleSheet.create({
   post: {
     margin: 10,
-    borderRadius: 20, 
+    borderRadius: 20,
     backgroundColor: 'white',
     shadowColor: "#000",
     shadowOffset: {
@@ -148,7 +154,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.18,
     shadowRadius: 1.00,
-    
+
     elevation: 1
   },
   image: {

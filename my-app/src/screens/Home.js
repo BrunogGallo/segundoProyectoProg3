@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -62,7 +63,7 @@ class Home extends Component {
   render() {
     console.log(this.state.posts)
     return (
-      <View>
+      <ScrollView>
         {this.state.loader ? (
           <ActivityIndicator size="large" color="black" />
         ) : (
@@ -75,7 +76,7 @@ class Home extends Component {
             />
           </View>
         )}
-      </View>
+      </ScrollView>
     );
   }
 }
