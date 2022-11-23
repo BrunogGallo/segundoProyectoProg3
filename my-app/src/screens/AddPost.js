@@ -44,6 +44,7 @@ class AddPost extends Component {
         })
         .then (()=> {
             this.props.navigation.navigate ('Home')
+            
     })
         .catch (error => console.log(error))
     }
