@@ -19,7 +19,12 @@ function HomeStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
-            <Stack.Screen name='Profile' component={Profile} options={{title: ''}} />
+            <Stack.Screen name='Profile' component={Profile} 
+            options={
+                {
+                    title: '', 
+                    headerStyle: {height: 45, },
+                }} />
         </Stack.Navigator>
     )
 }

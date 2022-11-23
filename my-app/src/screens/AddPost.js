@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
 import { StyleSheet } from "react-native";
 import { auth, db } from "../firebase/config";
 import firebase from "firebase";
@@ -7,13 +7,14 @@ import MyCamera from "../components/MyCamera";
 
 class AddPost extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             datosUsuario: null, //tiene que arrancar como null
             title: '',
             postContent: '',
-            showCamera: true,
+            camera: false,
+            photoTaken: false,
             url: ''
         }
     }
@@ -43,23 +44,32 @@ class AddPost extends Component {
             likes: [],
             photo: this.state.url
         })
-        .then (()=> {
-            this.props.navigation.navigate ('Home')
-    })
-        .catch (error => console.log(error))
+            .then(() => {
+                this.setState({
+                    title: '',
+                    postContent: '',
+                    camera: false,
+                    photoTaken: false,
+                    url: ''
+                },
+                    this.props.navigation.navigate('Home')
+                )
+
+            })
+            .catch(error => console.log(error))
     }
     onImageUpload(url) {
         this.setState({
             showCamera: false,
+            photoTaken: true,
             url: url
         });
-    }    
+    }
     render() {
         return (
             <React.Fragment>
                 <View style={styles.container}>
-                    <Text>Hi, {auth.currentUser?.email}</Text>
-                    <Text>Add a new post</Text>
+
                     <View style={styles.formContainer}>
                         <TextInput style={styles.formInput}
                             keyboardType='default'
@@ -69,15 +79,38 @@ class AddPost extends Component {
                         />
                         <TextInput style={styles.formInput}
                             keyboardType='default'
-                            placeholder='Content'
+                            placeholder='Add a description'
                             onChangeText={text => this.setState({ postContent: text })}
                             value={this.state.postContent}
                         />
-                        <MyCamera onImageUpload = {(url)=> this.onImageUpload(url)}/>
-                        <TouchableOpacity onPress={()=> {this.onSubmit(); this.props.navigation.navigate("Home")}}>
-                            <Text style={styles.formButton}>Post</Text>
-                        </TouchableOpacity>
                     </View>
+                    {
+                        this.state.photoTaken
+                            ?
+                            <React.Fragment>
+
+                                <Image source={{ uri: this.state.url }} style={styles.preview} />
+                                <TouchableOpacity onPress={() => this.onSubmit()}>
+                                    <Text>Post</Text>
+                                </TouchableOpacity>
+
+                            </React.Fragment>
+                            :
+                            <React.Fragment>
+                                {
+                                    this.state.camera === false
+                                        ?
+                                        <TouchableOpacity  onPress={() => this.setState({ camera: true })}>
+                                            <Text style={styles.button}>Take a pic</Text>
+                                        </TouchableOpacity>
+                                        :
+                                        <MyCamera
+                                            onImageUpload={(url) => this.onImageUpload(url)}
+                                        />
+                                }
+                            </React.Fragment>
+
+                    }
                 </View>
             </React.Fragment>
         )
@@ -89,12 +122,11 @@ const styles = StyleSheet.create({
         padding: 10
     },
     formContainer: {
-        backgroundColor: 'black',
-        borderRadius: 4
+        backgroundColor: 'grey',
     },
     formInput: {
         marginVertical: 10,
-        backgroundColor: 'grey',
+        backgroundColor: 'white',
         margin: 10,
         padding: 10,
         borderRadius: 4
@@ -106,16 +138,31 @@ const styles = StyleSheet.create({
         // borderRadius: 6,
         // marginVertical: 10,
     },
+    preview: {
+        height: 100,
+        width: 100
+    },
     formButton: {
-      width: 'fit-content',
-      alignSelf: "center",
-      color: 'black',
-      padding: 6,
-      margin: 4,
-      marginBottom: 10,
-      marginTop: 10,
-      borderRadius: 4,
-      backgroundColor: 'white'
+        width: 'fit-content',
+        alignSelf: "center",
+        color: 'white',
+        padding: 6,
+        margin: 4,
+        marginBottom: 10,
+        marginTop: 10,
+        borderRadius: 4,
+        backgroundColor: 'white'
+    },
+    button: {
+        color: 'white',
+        textAlign: 'center',
+        margin: 3,
+        backgroundColor: 'forestgreen',
+        margin: 10,
+        padding: 15,
+        borderRadius: 20,
+        fontWeight: 'bold',
+
     }
 })
 export default AddPost
