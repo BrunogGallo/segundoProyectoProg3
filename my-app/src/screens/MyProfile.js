@@ -3,7 +3,7 @@ import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Image, Scrol
 import { StyleSheet } from "react-native";
 import Posts from "../components/Posts";
 import { auth, db } from "../firebase/config";
-
+import IconoUsuario from "../components/IconoUsuario";
 
 
 class MyProfile extends Component {
@@ -72,10 +72,7 @@ class MyProfile extends Component {
                                 this.state.datosUsuario?.photo === '' || this.state.datosUsuario?.photo === null
                                     ?
                                     <View style={styles.profileImage}>
-                                        <Image style={styles.image}
-                                            source={require('../../assets/default-user-image.png')}
-                                            resizeMode='contain'
-                                        />
+                                        <IconoUsuario nombreUsuario={this.state.datosUsuario?.username} />
                                         <TouchableOpacity>
                                             <Text style={styles.profileData}>Cambiar foto</Text>
                                         </TouchableOpacity>
@@ -115,7 +112,7 @@ class MyProfile extends Component {
                             <FlatList
                                 data={this.state.postsUsuario}
                                 keyExtractor={item => item.id.toString()}
-                                renderItem={({ item }) => <Posts datosUsuario={this.state.datosUsuario} postData={item} />}
+                                renderItem={({ item }) => <Posts navigation={this.props.navigation} datosUsuario={this.state.datosUsuario} postData={item} />}
                                 />
                         </View>
                 }

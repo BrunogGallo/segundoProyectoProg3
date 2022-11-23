@@ -10,7 +10,7 @@ function IconoUsuario ({nombreUsuario}) {
             width: 45,
             height: 45,
           }}>
-            <Text style={{ color: 'white', fontSize: 22, textAlign: 'center'}}> {usernameToIcon}</Text>
+            <Text style={{ color: 'white', fontSize: 22, marginLeft: -5, marginBottom: 5}}> {usernameToIcon}</Text>
         </View>
     )
 }

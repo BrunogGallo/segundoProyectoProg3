@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, TouchableOpacity, TextInput, FlatList, Image} fr
 import {db} from '../firebase/config';
 import {  MaterialIcons  } from '@expo/vector-icons';
 import { Searchbar } from 'react-native-paper';
+import IconoUsuario from "../components/IconoUsuario";
 
 
 class Search extends Component {
@@ -113,10 +114,20 @@ class Search extends Component {
                 data={this.state.filteredUsers}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({item}) => 
-                    <View style={styles.itemContainer}>
-                        <Image source={item.data.photo} style={styles.image} />
-                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Profile', {owner: item.data.owner})}>
-                        <Text style={styles.textName}> {item.data.username}</Text>
+                    <View >
+                        
+
+                        <TouchableOpacity style={styles.itemContainer} onPress={() => this.props.navigation.navigate('Profile', { owner: item.data.owner })}>
+                           
+
+                                <View >
+                                    <IconoUsuario nombreUsuario={item.data.username} />
+                                </View>
+                                <View >
+                                    <Text style={styles.textName}> {item.data.username}</Text>
+                                </View>
+
+                            
                         </TouchableOpacity>
                     </View>
                     }

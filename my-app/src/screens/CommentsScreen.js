@@ -21,7 +21,6 @@ class CommentsScreen extends Component {
                     this.setState({
                         datosUsuario: data
                     })
-
                 })
             }
         )
@@ -73,12 +72,12 @@ class CommentsScreen extends Component {
     }
 
     render() {
-        console.log(this.state.comments);
+        console.log(this.state.datosUsuario);
         //Todo: mostrar solo si el hay comentarios
         return (
-            <View>
+            <View style={{width: '375px'}}>
                     <View style={styles.commentTitle}>
-                        <Text style={styles.commentTitleText}> Comments ({this.state.comments.length}) </Text>
+                        <Text style={styles.commentTitleText}> Comentarios ({this.state.comments.length}) </Text>
                     </View>
                     <View>
                         <View style={{ paddingHorizontal: '10px' }}>

@@ -4,7 +4,7 @@ function CorrectDate ({createdAt}) {
     var date = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
     return (
         <View>
-            <Text> Published on {date}</Text>
+            <Text> Publicado el {date}</Text>
         </View>
     )
 }
