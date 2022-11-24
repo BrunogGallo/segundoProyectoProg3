@@ -87,14 +87,14 @@ class AddPost extends Component {
                     {
                         this.state.photoTaken
                             ?
-                            <React.Fragment>
+                            <View style={styles.preview}>
 
-                                <Image source={{ uri: this.state.url }} style={styles.preview} />
+                                <Image source={{ uri: this.state.url }} style={styles.previewImage} />
                                 <TouchableOpacity onPress={() => this.onSubmit()}>
-                                    <Text>Post</Text>
+                                    <Text style={styles.button}>Post</Text>
                                 </TouchableOpacity>
 
-                            </React.Fragment>
+                            </View>
                             :
                             <React.Fragment>
                                 {
@@ -119,10 +119,12 @@ class AddPost extends Component {
 const styles = StyleSheet.create({
     container: {
         textAlign: 'center',
-        padding: 10
+        padding: 10,
+        justifyContent: 'center'
     },
     formContainer: {
-        backgroundColor: 'grey',
+        backgroundColor: 'darkseagreen',
+        borderRadius: 20
     },
     formInput: {
         marginVertical: 10,
@@ -139,8 +141,12 @@ const styles = StyleSheet.create({
         // marginVertical: 10,
     },
     preview: {
-        height: 100,
-        width: 100
+        alignItems: 'center',
+        backgroundColor: 'grey',
+    },
+    previewImage: {
+        height: 300,
+        width: 300
     },
     formButton: {
         width: 'fit-content',
@@ -162,7 +168,6 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 20,
         fontWeight: 'bold',
-
-    }
+    },
 })
 export default AddPost

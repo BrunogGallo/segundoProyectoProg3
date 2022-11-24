@@ -25,7 +25,7 @@ class Register extends Component {
     }
 
     onSubmit() {
-        this.state.bio.length > 15
+        this.state.bio.length > 20
         ? this.setState({
             errors: 'La descripcion debe tener un maximo de 15 caracteres'
         })

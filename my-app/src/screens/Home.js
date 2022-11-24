@@ -63,7 +63,7 @@ class Home extends Component {
   render() {
     console.log(this.state.posts)
     return (
-      <ScrollView>
+      <ScrollView style={{backgroundColor: 'grey'}}>
         {this.state.loader ? (
           <ActivityIndicator size="large" color="black" />
         ) : (
