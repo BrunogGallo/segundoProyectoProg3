@@ -106,7 +106,7 @@ class Register extends Component {
                                         </TouchableOpacity>
                                 }
 
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                                     <Text>Ya tienes cuenta? Ingresa</Text>
                                 </TouchableOpacity>
                             </View>
