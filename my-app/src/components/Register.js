@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { db, auth } from '../firebase/config'
+import MyCamera from './MyCamera'
 
 class Register extends Component {
 
@@ -14,7 +15,9 @@ class Register extends Component {
             bio: '',
             loader: true,
             errors: '',
-            photo: ''
+            photo: '',
+            showCamera: false,
+            photoTaken: false
         }
     }
 
@@ -26,31 +29,37 @@ class Register extends Component {
 
     onSubmit() {
         this.state.bio.length > 20
-        ? this.setState({
-            errors: 'La descripcion debe tener un maximo de 15 caracteres'
-        })
-        :
-        auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(response => {
-                db.collection('datosUsuario').add({
-                    owner: this.state.email,
-                    createdAt: Date.now(),
-                    age: this.state.age,
-                    username: this.state.username,
-                    bio: this.state.bio,
-                    photo: this.state.photo
+            ? this.setState({
+                errors: 'La descripcion debe tener un maximo de 15 caracteres'
+            })
+            :
+            auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+                .then(response => {
+                    db.collection('datosUsuario').add({
+                        owner: this.state.email,
+                        createdAt: Date.now(),
+                        age: this.state.age,
+                        username: this.state.username,
+                        bio: this.state.bio,
+                        photo: this.state.photo
+                    })
                 })
-            })
-            .then(() => this.props.navigation.navigate("Login"))
-            .catch(error => {
-                this.setState({
-                    errors: error.message
-                },
-                    console.log(error)
-                )
-            })
+                .then(() => this.props.navigation.navigate("Login"))
+                .catch(error => {
+                    this.setState({
+                        errors: error.message
+                    },
+                        console.log(error)
+                    )
+                })
     }
-
+    onImageUpload(url) {
+        this.setState({
+            showCamera: false,
+            photoTaken: true,
+            photo: url
+        });
+    }
 
     render() {
         return (
@@ -95,7 +104,34 @@ class Register extends Component {
                                     value={this.state.bio}
                                 />
                                 {
-                                    this.state.email !== '' && this.state.password !== ''
+                                    this.state.photoTaken
+                                        ?
+                                        <View style={styles.preview}>
+
+                                            <Image source={{ uri: this.state.photo }} style={styles.previewImage} />
+
+                                        </View>
+                                        :
+                                        <React.Fragment>
+                                            {
+                                                this.state.showCamera === false
+                                                    ?
+                                                    <TouchableOpacity style={{alignItems: 'center'}} onPress={() => this.setState({ showCamera: true })}>
+                                                        <Text style={styles.button}>Take a pic</Text>
+                                                    </TouchableOpacity>
+                                                    :
+                                                    <MyCamera
+                                                        onImageUpload={(url) => this.onImageUpload(url)}
+                                                    />
+                                            }
+                                        </React.Fragment>
+
+                                }
+
+
+
+                                {
+                                    this.state.email !== '' && this.state.password !== '' && this.state.username !== ''
                                         ?
                                         <TouchableOpacity onPress={() => this.onSubmit()}>
                                             <Text style={styles.submitButton}>Registrate</Text>
@@ -172,6 +208,23 @@ const styles = StyleSheet.create({
     },
     error: {
         color: 'red'
+    },
+    preview: {
+        alignItems: 'center',
+        
+    },
+    previewImage: {
+        height: 160,
+        width: 160,
+    },
+    button: {
+        color: 'white',
+        textAlign: 'center',
+        backgroundColor: 'grey',
+        margin: 6,
+        padding: 6,
+        borderRadius: 20,
+        width: '50%'
     }
 })
 
