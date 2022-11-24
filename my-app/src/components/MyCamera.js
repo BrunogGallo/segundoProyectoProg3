@@ -124,10 +124,12 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 300,
     width: 300,
+    borderRadius: 20
   },
   previewImage: {
     height: 300,
-    width: 300
+    width: 300,
+    borderRadius: 20
   },
   buttons: {
     color: 'white',
@@ -141,7 +143,8 @@ const styles = StyleSheet.create({
   },
   preview: {
     alignItems: 'center',
-    backgroundColor: 'grey'
+    backgroundColor: 'darkseagreen',
+    borderRadius: 20
   }
 })
 

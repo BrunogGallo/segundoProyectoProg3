@@ -15,13 +15,13 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        auth.onAuthStateChanged(user => {
-            if (user) {
+        auth.onAuthStateChanged(user => { //observa los datos obtenidos del usuario
+            if (user) { //usamos los datos del usuario con el parametro user
                 this.props.navigation.navigate('AppMainPage')
             } else {
                 this.setState({
                     loader: false
-                })
+                })  
             }
         })
 
@@ -49,7 +49,7 @@ class Login extends Component {
                     this.state.loader
                         ? <ActivityIndicator size='large' color='black' />
                         :
-                        <View style={styles.mainContainer}>
+                        <View style={styles.mainContainer}> 
                             <View style={styles.contendorLogin}>
                                 <Text style={styles.title}>Foodle</Text>
                                 <Text style={styles.error}>{this.state.errors}</Text>

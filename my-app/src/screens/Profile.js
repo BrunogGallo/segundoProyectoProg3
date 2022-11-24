@@ -133,11 +133,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        paddingTop: 30,
+        paddingTop: 10,
         padding: 10,
         backgroundColor: 'white',
         position: 'relative',
-        borderRadius: 15
     },
     bold: {
         fontWeight: 'bold',

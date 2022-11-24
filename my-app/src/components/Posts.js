@@ -73,7 +73,7 @@ class Posts extends Component {
   }
   //! La verdadera es Comments
   render() {
-    console.log(this.props);
+    console.log(this.props.postData.data.ownerUsername);
     return (
 
       <View style={styles.post}>
@@ -81,10 +81,10 @@ class Posts extends Component {
           <View style={styles.upperPartOfPost}>
 
             <View style={{ flex: 1 }}>
-              <IconoUsuario nombreUsuario={this.props.postData.data.owner} />
+              <IconoUsuario nombreUsuario={this.props.postData.data.ownerUsername} />
             </View>
             <View style={{ flex: 8, justifyContent: 'center', alignItems: 'flex-start', marginLeft: 10 }}>
-              <Text style={{ fontWeight: 'bold' }}> {this.props.postData.data.owner}</Text>
+              <Text style={{ fontWeight: 'bold' }}> {this.props.postData.data.ownerUsername}</Text>
             </View>
 
           </View>
@@ -141,7 +141,7 @@ class Posts extends Component {
           <View>
             <View style={{ flexDirection: 'row', padding: 9 }}>
               <View>
-                <Text style={{ fontWeight: 'bold' }}> {this.props.postData.data.owner} </Text>
+                <Text style={{ fontWeight: 'bold' }}> {this.props.postData.data.ownerUsername} </Text>
               </View>
               <View style={{ marginLeft: -3 }}>
                 <Text> {this.props.postData.data.postContent} </Text>
