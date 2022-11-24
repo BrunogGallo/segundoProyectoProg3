@@ -14,6 +14,7 @@ class MyCamera extends Component {
   }
 
   componentDidMount() {
+    //* Esto lo hacemos porque es peligroso que la camara se configura sola
     Camera.requestCameraPermissionsAsync()
       .then(() => {
         this.setState({
@@ -27,14 +28,15 @@ class MyCamera extends Component {
     this.metodosDeCamara.takePictureAsync().
       then((photo) => {
         this.setState({
-          url: photo.uri, //Es una uri interna temporal de la foto.
+          url: photo.uri, //Es una uri interna temporal de la foto. Es una ruta interna a nuestro foto
           showCamera: false, //* una vez tomada la foto ocultaremos la camara.
-        });
+        })
+        .catch((e) => console.log(e));
       });
   }
 
   savePhoto() {
-    fetch(this.state.url)
+    fetch(this.state.url) //* Fetch para acceder a nuestra ruta interna. 
       .then((res) => res.blob()) //* Puedo tener la representación binaria de la imágen
       .then((image) => {
         const ref = storage.ref(`photos/${Date.now()}.jpg`);
@@ -44,7 +46,6 @@ class MyCamera extends Component {
             ref.getDownloadURL()
               .then((url) => {
                 this.props.onImageUpload(url);
-                //? Qué hace aca?
               })
               .catch((e) => console.log(e));
           })
@@ -97,6 +98,7 @@ class MyCamera extends Component {
                   }}
                   //* Esta función va a ser agregada al objeto this.
                   //* Forma de controlar componente hijo a través del padre
+                  //* Ref hace referencia a si misma
                   />
                 
                 </View>
