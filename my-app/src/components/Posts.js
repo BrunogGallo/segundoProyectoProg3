@@ -72,6 +72,14 @@ class Posts extends Component {
     //* Aca lo que estoy haciendo es pasarle información mediante un objeto literal para despues mostrarlo en esa página 
   }
   //! La verdadera es Comments
+  deletePost() {
+    if (confirm('Delete post') === true){
+        db.collection('posts').doc(this.props.postData.id).delete()
+    } else {
+        false
+    }
+}
+  
   render() {
     console.log(this.props.postData.data.ownerUsername);
     return (
@@ -139,6 +147,14 @@ class Posts extends Component {
               </View>
             </View>
           </View>
+          {
+                        auth.currentUser.email === this.props.postData.data.owner ?
+                            <TouchableOpacity onPress={() => this.deletePost()}>
+                                <Text style={{ flexDirection: 'row', padding: 9, color: 'red'}}>Delete Post</Text>
+                            </TouchableOpacity>
+                        :
+                            false
+                    }
           <View>
             <View style={{ flexDirection: 'row', padding: 9 }}>
               <View>
