@@ -75,7 +75,7 @@ class CommentsScreen extends Component {
         console.log(this.state.datosUsuario);
         //Todo: mostrar solo si el hay comentarios
         return (
-            <View style={{width: '375px'}}>
+            <View style={{width: '100%'}}>
                     <View style={styles.commentTitle}>
                         <Text style={styles.commentTitleText}> Comentarios ({this.state.comments.length}) </Text>
                     </View>
