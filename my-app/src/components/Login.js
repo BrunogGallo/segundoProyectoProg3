@@ -61,7 +61,7 @@ class Login extends Component {
                                 />
                                 <TextInput style={styles.fuenteLogin}
                                     keyboardType='default'
-                                    placeholder='Contraseña'
+                                    placeholder='Password'
                                     secureTextEntry={true}
                                     onChangeText={text => this.setState({ password: text })}
                                     value={this.state.password}
@@ -70,16 +70,16 @@ class Login extends Component {
                                     this.state.email !== '' && this.state.password !== ''
                                         ?
                                         <TouchableOpacity onPress={() => this.onSubmit()}>
-                                            <Text style={styles.submitButton}>Ingresar</Text>
+                                            <Text style={styles.submitButton}>Enter</Text>
                                         </TouchableOpacity>
                                         :
                                         <TouchableOpacity>
-                                            <Text style={styles.submitButtonOff}>Ingresar</Text>
+                                            <Text style={styles.submitButtonOff}>Enter</Text>
                                         </TouchableOpacity>
                                 }
 
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
-                                    <Text>No tienes cuenta? Registrate</Text>
+                                    <Text>Don´t have an account? Register</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

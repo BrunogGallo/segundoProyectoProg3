@@ -68,7 +68,7 @@ class Posts extends Component {
       );
   }
   goToCommentsPage() {
-    this.props.navigation.navigate('Comentarios', { itemId: this.props.postData.id, posts: this.props.postData.data })
+    this.props.navigation.navigate('Comments', { itemId: this.props.postData.id, posts: this.props.postData.data })
     //* Aca lo que estoy haciendo es pasarle información mediante un objeto literal para despues mostrarlo en esa página 
   }
   //! La verdadera es Comments
