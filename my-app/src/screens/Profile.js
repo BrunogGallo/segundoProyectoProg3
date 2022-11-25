@@ -93,7 +93,7 @@ class Profile extends Component {
                                 <Text style={styles.bold}>{this.state.datosUsuario?.username}</Text>
                                 <Text style={styles.profileData}>{this.state.datosUsuario?.owner}</Text>
                                 <Text style={styles.profileData}>"{this.state.datosUsuario?.bio}"</Text>
-                                <Text style={styles.profileData}>Publicaciones: {this.state.postsUsuario.length}</Text>
+                                <Text style={styles.profileData}>Posts: {this.state.postsUsuario.length}</Text>
                             </View>
                         </View>
                 }

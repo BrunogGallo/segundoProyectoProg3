@@ -35,8 +35,7 @@ class Home extends Component {
       }
   )
     db.collection("posts")
-      //   .orderBy("createdAt", "asc")
-      //   .limit(3)
+      .orderBy("createdAt", "desc")
       .onSnapshot(docs => {
         let posts = [];
 
