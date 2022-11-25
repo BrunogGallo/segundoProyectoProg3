@@ -73,7 +73,7 @@ class Posts extends Component {
   }
   //! La verdadera es Comments
   deletePost() {
-    if (confirm('Delete post') === true){
+    if (confirm('Are you sure you want to delete this post?') === true){
         db.collection('posts').doc(this.props.postData.id).delete()
     } else {
         false
