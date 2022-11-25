@@ -120,9 +120,21 @@ class Search extends Component {
                         <TouchableOpacity style={styles.itemContainer} onPress={() => this.props.navigation.navigate('Profile', { owner: item.data.owner })}>
                            
 
-                                <View >
-                                    <IconoUsuario nombreUsuario={item.data.username} />
-                                </View>
+                                {
+                                    item.data.photo !== ''
+                                    ?
+                                    <View>
+                                       <Image style={styles.image}
+                                        source={{ uri: item.data.photo }}
+                                        resizeMode='contain'
+                                        /> 
+                                    </View> 
+                                    :
+                                    <View >
+                                        <IconoUsuario nombreUsuario={item.data.username} />
+                                    </View>
+                                }
+                                
                                 <View >
                                     <Text style={styles.textName}> {item.data.username}</Text>
                                 </View>
@@ -176,7 +188,8 @@ const styles = StyleSheet.create({
     image: {
         width: 50,
         height: 50,
-        borderRadius: 25,
+        borderRadius: '100%',
+        backgroundColor: 'blue'
     },
     textName: {
         fontSize: 17,

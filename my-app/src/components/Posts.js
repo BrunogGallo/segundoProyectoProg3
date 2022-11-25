@@ -81,6 +81,7 @@ class Posts extends Component {
           <View style={styles.upperPartOfPost}>
 
             <View style={{ flex: 1 }}>
+              
               <IconoUsuario nombreUsuario={this.props.postData.data.ownerUsername} />
             </View>
             <View style={{ flex: 8, justifyContent: 'center', alignItems: 'flex-start', marginLeft: 10 }}>

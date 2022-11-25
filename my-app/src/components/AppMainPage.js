@@ -33,7 +33,7 @@ function SearchStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Search" component={Search} options={{ headerShown: false }}/>
-            <Stack.Screen name='Profile' component={Profile} options={{ title: ''}}/>
+            <Stack.Screen name='Profile' component={Profile} options={{ title: '', headerStyle: {height: 45, }}}/>
         </Stack.Navigator>
     )
 }

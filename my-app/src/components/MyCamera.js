@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Camera } from "expo-camera";
-import { auth, db, storage } from '../firebase/config';
+import { storage } from '../firebase/config';
 
 class MyCamera extends Component {
   constructor(props) {
@@ -31,8 +31,9 @@ class MyCamera extends Component {
           url: photo.uri, //Es una uri interna temporal de la foto. Es una ruta interna a nuestro foto
           showCamera: false, //* una vez tomada la foto ocultaremos la camara.
         })
-        .catch((e) => console.log(e));
-      });
+        
+      })
+      .catch((e) => console.log(e));;
   }
 
   savePhoto() {
@@ -53,6 +54,7 @@ class MyCamera extends Component {
       })
       .catch((e) => console.log(e)); //Todo: en el proyecto hacer lo que corresponda
   }
+  
 
   clearPhoto() {
     this.setState({

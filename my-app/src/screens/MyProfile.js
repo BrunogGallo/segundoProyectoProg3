@@ -73,9 +73,6 @@ class MyProfile extends Component {
                                     ?
                                     <View style={styles.profileImage}>
                                         <IconoUsuario nombreUsuario={this.state.datosUsuario?.username} />
-                                        <TouchableOpacity>
-                                            <Text style={styles.profileData}>Cambiar foto</Text>
-                                        </TouchableOpacity>
                                     </View>
 
                                     :
@@ -84,9 +81,6 @@ class MyProfile extends Component {
                                             source={{ uri: this.state.datosUsuario?.photo }}
                                             resizeMode='contain'
                                         />
-                                        <TouchableOpacity>
-                                            <Text style={styles.profileData}>Cambiar foto</Text>
-                                        </TouchableOpacity>
                                     </View>
                             }
 
@@ -123,8 +117,10 @@ class MyProfile extends Component {
 }
 const styles = StyleSheet.create({
     image: {
-        height: 50,
-        width: 50
+        height: 100,
+        width: 100,
+        borderRadius: '100%',
+        backgroundColor: 'blue'
     },
     userDataContainer: {
         flexDirection: 'row',
