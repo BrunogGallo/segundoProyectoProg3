@@ -28,6 +28,7 @@ class CommentsScreen extends Component {
             //   .orderBy("createdAt", "asc") //? Hace falta hacer un order by aca?
             .doc(this.props.route.params.itemId)
             .collection("comments")
+            .orderBy("createdAt", "desc") //? Hace falta hacer un order by aca?
             //* Como no quiero traerme toda la colleción, puede utilizar doc para identificar el usuario específico. 
             .onSnapshot(docs => {
                 let comments = [];
