@@ -23,7 +23,7 @@ class App extends Component {
           <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
           <Stack.Screen name='Register' component={Register} options={{ headerShown: false }}/>
           <Stack.Screen name='AppMainPage' component={AppMainPage} options={{ headerShown: false }}/>
-          <Stack.Screen name='Comentarios' component={CommentsScreen} options={{ headerShown: true }}/>
+          <Stack.Screen name='Comments' component={CommentsScreen} options={{ headerShown: true }}/>
         </Stack.Navigator>
       </NavigationContainer>
 

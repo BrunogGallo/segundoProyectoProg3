@@ -68,7 +68,7 @@ class Posts extends Component {
       );
   }
   goToCommentsPage() {
-    this.props.navigation.navigate('Comentarios', { itemId: this.props.postData.id, posts: this.props.postData.data })
+    this.props.navigation.navigate('Comments', { itemId: this.props.postData.id, posts: this.props.postData.data })
     //* Aca lo que estoy haciendo es pasarle información mediante un objeto literal para despues mostrarlo en esa página 
   }
 
@@ -79,6 +79,14 @@ class Posts extends Component {
   }
   
   //! La verdadera es Comments
+  deletePost() {
+    if (confirm('Are you sure you want to delete this post?') === true){
+        db.collection('posts').doc(this.props.postData.id).delete()
+    } else {
+        false
+    }
+}
+  
   render() {
     console.log(this.props.postData.data.ownerUsername);
     return (
@@ -147,6 +155,14 @@ class Posts extends Component {
               </View>
             </View>
           </View>
+          {
+                        auth.currentUser.email === this.props.postData.data.owner ?
+                            <TouchableOpacity onPress={() => this.deletePost()}>
+                                <Text style={{ flexDirection: 'row', padding: 9, color: 'red'}}>Delete Post</Text>
+                            </TouchableOpacity>
+                        :
+                            false
+                    }
           <View>
             <View style={{ flexDirection: 'row', padding: 9 }}>
               <View>

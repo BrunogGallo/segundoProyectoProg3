@@ -28,6 +28,7 @@ class CommentsScreen extends Component {
             //   .orderBy("createdAt", "asc") //? Hace falta hacer un order by aca?
             .doc(this.props.route.params.itemId)
             .collection("comments")
+            .orderBy("createdAt", "desc") //? Hace falta hacer un order by aca?
             //* Como no quiero traerme toda la colleción, puede utilizar doc para identificar el usuario específico. 
             .onSnapshot(docs => {
                 let comments = [];
@@ -75,9 +76,9 @@ class CommentsScreen extends Component {
         console.log(this.state.datosUsuario);
         //Todo: mostrar solo si el hay comentarios
         return (
-            <View style={{width: '375px'}}>
+            <View style={{width: '100%'}}>
                     <View style={styles.commentTitle}>
-                        <Text style={styles.commentTitleText}> Comentarios ({this.state.comments.length}) </Text>
+                        <Text style={styles.commentTitleText}> Comments ({this.state.comments.length}) </Text>
                     </View>
                     <View>
                         <View style={{ paddingHorizontal: '10px' }}>

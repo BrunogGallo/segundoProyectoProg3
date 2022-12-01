@@ -97,7 +97,7 @@ class Search extends Component {
         return (
             <View style={styles.searchBar}>
                 
-                <Searchbar style={styles.inputSearch} placeholder="Introduce un Usuario" 
+                <Searchbar style={styles.inputSearch} placeholder="Enter a Username" 
                 onChangeText={ text => (this.setState({value: text}))}
                 value={this.state.value}
                 onChange={(e) => this.controlChanges(e)}

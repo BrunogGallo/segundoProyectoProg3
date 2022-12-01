@@ -18,7 +18,7 @@ class CommentsOld extends Component {
     }
     componentDidMount() {
         db.collection("posts")
-            //   .orderBy("createdAt", "asc") //? Hace falta hacer un order by aca?
+            //.orderBy("createdAt", "asc") //? Hace falta hacer un order by aca?
             .doc(this.props.route.params.itemId)
             //* Como no quiero traerme toda la colleción, puede utilizar doc para identificar el usuario específico. 
             .onSnapshot(doc => {

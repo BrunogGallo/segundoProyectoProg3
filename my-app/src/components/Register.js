@@ -80,26 +80,26 @@ class Register extends Component {
                                 />
                                 <TextInput style={styles.fuenteLogin}
                                     keyboardType='default'
-                                    placeholder='Nombre de usuario'
+                                    placeholder='Password'
                                     onChangeText={text => this.setState({ username: text })}
                                     value={this.state.username}
                                 />
                                 <TextInput style={styles.fuenteLogin}
                                     keyboardType='default'
-                                    placeholder='Contraseña'
+                                    placeholder='Password'
                                     secureTextEntry={true}
                                     onChangeText={text => this.setState({ password: text })}
                                     value={this.state.password}
                                 />
                                 <TextInput style={styles.fuenteLogin}
                                     keyboardType='numeric'
-                                    placeholder='Edad'
+                                    placeholder='Age'
                                     onChangeText={text => this.setState({ age: text })}
                                     value={this.state.age}
                                 />
                                 <TextInput style={styles.fuenteLogin}
                                     keyboardType='default'
-                                    placeholder='Algo sobre ti'
+                                    placeholder='Something about you'
                                     onChangeText={text => this.setState({ bio: text })}
                                     value={this.state.bio}
                                 />
@@ -134,16 +134,16 @@ class Register extends Component {
                                     this.state.email !== '' && this.state.password !== '' && this.state.username !== ''
                                         ?
                                         <TouchableOpacity onPress={() => this.onSubmit()}>
-                                            <Text style={styles.submitButton}>Registrate</Text>
+                                            <Text style={styles.submitButton}>Register</Text>
                                         </TouchableOpacity>
                                         :
                                         <TouchableOpacity>
-                                            <Text style={styles.submitButtonOff}>Registrate</Text>
+                                            <Text style={styles.submitButtonOff}>Register</Text>
                                         </TouchableOpacity>
                                 }
 
                                 <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                                    <Text>Ya tienes cuenta? Ingresa</Text>
+                                    <Text>Already have an account? Enter</Text>
                                 </TouchableOpacity>
                             </View>
                     }
