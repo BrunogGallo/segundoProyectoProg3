@@ -37,16 +37,15 @@ class MyCamera extends Component {
   }
 
   savePhoto() {
-    fetch(this.state.url) //* Fetch para acceder a nuestra ruta interna. 
-      .then((res) => res.blob()) //* Puedo tener la representación binaria de la imágen
+    fetch(this.state.url) //* obtiene la foto desde la ubicacion temporal dentro del dispositivo
+      .then((res) => res.blob()) //* Representacion binaria de la imagen
       .then((image) => {
-        const ref = storage.ref(`photos/${Date.now()}.jpg`);
-        //Todo: Pregutnar qué hace ref
-        ref.put(image) //* Subo a firebase el archivo 
+        const ref = storage.ref(`photos/${Date.now()}.jpg`); 
+        ref.put(image) //guardo el archivo en firebase storage
           .then(() => {
-            ref.getDownloadURL()
+            ref.getDownloadURL() //consigo la url de acceso publico
               .then((url) => {
-                this.props.onImageUpload(url);
+                this.props.onImageUpload(url); //la paso a add post para subirla con el posteo
               })
               .catch((e) => console.log(e));
           })
@@ -106,8 +105,7 @@ class MyCamera extends Component {
                 </View>
                 <View>
 
-                  <TouchableOpacity onPress={() => this.takePicture()}
-                  >
+                  <TouchableOpacity onPress={() => this.takePicture()}>
                     <Text style={styles.buttons}>Shoot</Text>
                   </TouchableOpacity>
                 </View>

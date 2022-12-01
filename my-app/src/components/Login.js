@@ -15,7 +15,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        auth.onAuthStateChanged(user => { //observa los datos obtenidos del usuario
+        auth.onAuthStateChanged(user => { //observa los datos obtenidos del usuario, se ejecuta siempre que se carga la pagina, cheqeua el estado de logeo del usuario
             if (user) { //usamos los datos del usuario con el parametro user
                 this.props.navigation.navigate('AppMainPage')
             } else {

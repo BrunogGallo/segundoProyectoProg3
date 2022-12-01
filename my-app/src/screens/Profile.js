@@ -18,9 +18,6 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        auth.currentUser.email === this.props.route.params.owner
-        ? this.props.navigation.navigate('Mi Perfil')
-        :
         db.collection('datosUsuario').where('owner', '==', this.props.route.params.owner).onSnapshot(
             docs => {
                 docs.forEach(doc => { //doc es un array

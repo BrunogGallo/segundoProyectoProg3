@@ -71,13 +71,21 @@ class Posts extends Component {
     this.props.navigation.navigate('Comentarios', { itemId: this.props.postData.id, posts: this.props.postData.data })
     //* Aca lo que estoy haciendo es pasarle información mediante un objeto literal para despues mostrarlo en esa página 
   }
+
+  goToProfile() {
+    if (this.props.postData.data.owner !== auth.currentUser.email) {
+      this.props.navigation.navigate('Profile', { owner: this.props.postData.data.owner })
+    } 
+  }
+  
   //! La verdadera es Comments
   render() {
     console.log(this.props.postData.data.ownerUsername);
     return (
 
       <View style={styles.post}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', { owner: this.props.postData.data.owner })}>
+        
+        <TouchableOpacity onPress={() => this.goToProfile()}>
           <View style={styles.upperPartOfPost}>
 
             <View style={{ flex: 1 }}>
